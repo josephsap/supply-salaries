@@ -4,6 +4,9 @@ import './App.css';
 import axios from 'axios';
 import PositionSelect from './components/positionSelect';
 import LocationSelect from './components/locationSelect';
+import JobDetails from './components/jobDetails';
+import SalaryResults from './components/salaryResults';
+
 
 class App extends Component {
 
@@ -30,11 +33,11 @@ class App extends Component {
     });
   }
 
-  handlePositionChange(e) {
+  handlePositionChange = (e) => {
     this.setState({selectedPositionValue: e.target.value});
   }
 
-  handleLocationChange(e) {
+  handleLocationChange = (e) => {
     this.setState({selectedLocationValue: e.target.value});
   }
 
@@ -43,7 +46,7 @@ class App extends Component {
     axios.get(`http://localhost:3000/api/salaries/${this.state.selectedPositionValue}/${this.state.selectedLocationValue}`)
     .then(response => {
       this.setState({
-        jobs: response.data,
+        selectedJobData: response.data,
         loading: false,
         selectedPositionValue: this.state.selectedPositionValue,
         selectedLocationValue: this.state.selectedLocationValue,
@@ -55,7 +58,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state)
     const loading = this.state.loading;
     return (
       <div className="App">
@@ -63,7 +65,7 @@ class App extends Component {
         {!loading &&
           <form onSubmit={this.handleSubmit}>
             <PositionSelect 
-              { ...this.state } 
+              { ...this.state }
               controlFunction={this.handlePositionChange}
             />
             <LocationSelect
@@ -73,6 +75,10 @@ class App extends Component {
             <input type="submit" value="submit" />
           </form>
         }
+        <div>
+          <SalaryResults selectedJobItem={this.state.selectedJobData} isLoading={this.state.loading}/>
+          <JobDetails jobItemDescriptions={this.state.initialJobs} />
+        </div>
       </div>
     );
   }
