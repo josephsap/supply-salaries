@@ -1,0 +1,14 @@
+.jobDetailItems {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.jobDetailItems li {
+  display: inline-block;
+  padding: 10px;
+}
+
+.active {
+  background-color: gray;
+}

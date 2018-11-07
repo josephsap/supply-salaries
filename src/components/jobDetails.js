@@ -1,17 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import _ from 'lodash';
+import './main.css';
 
 
 // render the job descriptions on the bottom
-const JobDetails = ({ jobItemDescriptions }) => {
+const JobDetails = (props) => {
 
-  const uniqueJobLevels = _.uniqBy(jobItemDescriptions, function(item) {
-    return item.jobLevel;
-  });
-
-  const jobDetailItems = uniqueJobLevels.map((jobItem) => {
+  const jobDetailItems = props.sortedJobsArr.map((jobItem, index) => {
     return (
-      <li key={jobItem.id}>
+      <li key={jobItem.id} onClick={((e) => props.handleJobLevelSelect(jobItem, index))} className={props.activeIndex === index ? 'active' : ''}>
         <h3>{jobItem.jobLevel}</h3>
         <p>{jobItem.jobDescription}</p>
       </li>
@@ -19,8 +16,9 @@ const JobDetails = ({ jobItemDescriptions }) => {
   });
 
   return (
-    <ul>{jobDetailItems}</ul>
+    <ul className="jobDetailItems">{jobDetailItems}</ul>
   );
+
 };
 
 
