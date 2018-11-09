@@ -9,8 +9,9 @@ const LocationSelect = (props) => {
   });
 
   const locationSelectOptions = uniqueLocations.map((position) => {
+    console.log(position, 'hie');
     return (
-      <option key={position.id} value={position.location}>{position.location}</option>
+      <option key={position.id} value={position.locationSlug}>{position.location}</option>
     );
   });
   

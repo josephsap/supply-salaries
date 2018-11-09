@@ -10,7 +10,7 @@ const PositionSelect = (props) => {
 
   const positionSelectOptions = uniquePositionNames.map((position) => {
     return (
-      <option key={position.id} value={position.jobTitle}>{position.jobTitle}</option>
+      <option key={position.id} value={position.slug}>{position.jobTitle}</option>
     );
   });
 

@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import _ from 'lodash';
 import './App.css';
 import axios from 'axios';
@@ -15,8 +15,8 @@ class App extends Component {
   state = {
     loading: true,
     initialJobs: [],
-    selectedPositionValue: 'developer',
-    selectedLocationValue: 'seattle',
+    selectedPositionValue: null,
+    selectedLocationValue: null,
     selectedJobData: [],
     activeIndex: 0,
     sortedJobs: [],
@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/api/salaries/')
+    axios.get('http://events.thesupply.com/api/salaries/')
     .then(response => {
       this.setState({
         initialJobs: response.data,
@@ -82,7 +82,7 @@ class App extends Component {
   handleSubmit = (e) => {
 
     e.preventDefault();
-    axios.get(`http://localhost:3000/api/salaries/${this.state.selectedPositionValue}/${this.state.selectedLocationValue}`)
+    axios.get(`http://events.thesupply.com/api/salaries/${this.state.selectedPositionValue}/${this.state.selectedLocationValue}`)
     .then(response => {
       this.setState(function(prevState, props){
         return {
