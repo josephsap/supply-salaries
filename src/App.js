@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('//events.thesupply.com/api/salaries/')
+    axios.get('https://events.thesupply.com/api/salaries/')
     .then(response => {
       this.setState({
         initialJobs: response.data,
@@ -82,7 +82,7 @@ class App extends Component {
   handleSubmit = (e) => {
 
     e.preventDefault();
-    axios.get(`//events.thesupply.com/api/salaries/${this.state.selectedPositionValue}/${this.state.selectedLocationValue}`)
+    axios.get(`https://events.thesupply.com/api/salaries/${this.state.selectedPositionValue}/${this.state.selectedLocationValue}`)
     .then(response => {
       this.setState(function(prevState, props){
         return {
