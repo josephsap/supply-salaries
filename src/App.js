@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import './App.css';
+import styles from './styles/app.module.scss';
 import axios from 'axios';
+import SVGS from './components/svgs';
 import PositionSelect from './components/positionSelect';
 import LocationSelect from './components/locationSelect';
 import JobDetails from './components/jobDetails';
@@ -106,18 +108,24 @@ class App extends Component {
     const loading = this.state.loading;
     return (
       <div className="App">
+        <div className="top-bar">
+          <div className="container">
+            <SVGS />
+          </div>
+        </div>
         { loading && <div>loading@@ </div>}
         {!loading &&
           <form onSubmit={this.handleSubmit}>
             <PositionSelect 
               { ...this.state }
               controlFunction={this.handlePositionChange}
+              defaultOption="Category"
             />
             <LocationSelect
               { ...this.state }
               controlFunction={this.handleLocationChange}
             />
-            <input type="submit" value="submit" />
+            { this.state.selectedPositionValue !== null && this.state.selectedLocationValue !== null && <input type="submit" value="submit" /> }
           </form>
         }
         <div>

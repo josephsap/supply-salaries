@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import _ from 'lodash';
+import styles from '../styles/app.module.scss';
 
 
 const LocationSelect = (props) => {
@@ -15,9 +16,15 @@ const LocationSelect = (props) => {
   });
   
   return (
-    <select onChange={props.controlFunction} value={props.selectedLocationValue}>
-      { locationSelectOptions }
-    </select>
+    <Fragment>
+      <p className={styles.inlineBlock}>Should make in</p>
+      <select onChange={props.controlFunction} value={props.selectedLocationValue}>
+        <option defaultValue="location" selected disabled hidden>
+          Location
+        </option>
+        { locationSelectOptions }
+      </select>
+    </Fragment>
   );
 };
 

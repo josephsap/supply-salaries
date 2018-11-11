@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import _ from 'lodash';
+import styles from '../styles/app.module.scss';
 
 
 const PositionSelect = (props) => {
@@ -8,16 +9,22 @@ const PositionSelect = (props) => {
     return item.jobTitle;
   });
 
-  const positionSelectOptions = uniquePositionNames.map((position) => {
+  const makePositionSelectOptions = uniquePositionNames.map((position) => {
     return (
       <option key={position.id} value={position.slug}>{position.jobTitle}</option>
     );
   });
 
   return (
-    <select onChange={props.controlFunction} value={props.selectedPositionValue}>
-      { positionSelectOptions }
-    </select>
+    <Fragment>
+      <p className={styles.inlineBlock}>I'm curious what a</p>
+      <select onChange={props.controlFunction} value={props.selectedPositionValue}>
+        <option defaultValue="category" selected disabled hidden>
+          Category
+        </option>
+        { makePositionSelectOptions }
+      </select>
+    </Fragment>
   );
 };
 
