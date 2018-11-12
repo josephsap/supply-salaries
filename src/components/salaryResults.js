@@ -10,7 +10,7 @@ const SalaryResults = (props) => {
     );
     } else {
       return (
-        <div>select stuff to see estimated salary numbers</div>
+        <p>select stuff to see estimated salary numbers</p>
       );
     }
 };

@@ -1,12 +1,17 @@
 .jobDetailItems {
-  position: absolute;
+/*  position: absolute;
   bottom: 0;
-  left: 0;
+  left: 0;*/
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }
 
 .jobDetailItems li {
-  display: inline-block;
+  flex: 0 0 auto;
   padding: 10px;
+  list-style: none;
+  border: 1px solid blue;
 }
 
 .active {

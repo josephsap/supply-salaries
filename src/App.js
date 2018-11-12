@@ -128,7 +128,7 @@ class App extends Component {
             { this.state.selectedPositionValue !== null && this.state.selectedLocationValue !== null && <input type="submit" value="submit" /> }
           </form>
         }
-        <div>
+        <div className={styles.jobContainer}>
           <SalaryResults activeJob={this.state.activeJobItem}isLoading={this.state.loading}/>
           <JobDetails jobItemDescriptions={this.state.initialJobs} handleJobLevelSelect={this.handleJobLevelSelect} sortedJobsArr={this.state.sortedJobs} activeIndex={this.state.activeIndex}/>
         </div>
