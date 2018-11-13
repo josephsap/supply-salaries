@@ -3,9 +3,9 @@
     background-color: $backgroundGray;
     position: static;
     height: 250px;
-    border-bottom: 2px solid #ccc;
     display: table;
     width: 100%;
+    margin-bottom: 2rem;
 
     .container {
         vertical-align: middle;
@@ -13,9 +13,6 @@
         height: 150px;
         position: relative;
         width: 100%;
-        // @include tablet-portrait-and-up {
-        //   height: auto;
-        // }
 
         svg {
           display: none;

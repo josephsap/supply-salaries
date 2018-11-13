@@ -23,7 +23,10 @@ body {
 .jobDetailItems {
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: visible;
+  overflow-x: auto;
+  margin-top: 10vw;
+  padding-top: 12px;
+  padding-left: 0;
 
   li {
     flex: 0 0 auto;

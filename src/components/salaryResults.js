@@ -1,12 +1,12 @@
 import React from 'react';
+import styles from '../styles/salaryResults.module.scss';
 
 const SalaryResults = (props) => {
   if(props.activeJob) {
     return (
-      <div>
-        {props.activeJob.salaryLow} - 
-        {props.activeJob.salaryHigh}
-      </div>
+      <h3 className={styles.salaryResultText}>
+        ${props.activeJob.salaryLow} - ${props.activeJob.salaryHigh}
+      </h3>
     );
     } else {
       return (
