@@ -1,5 +1,5 @@
 import React from 'react';
-import './main.css';
+import styles from '../styles/main.module.scss';
 
 
 // render the job descriptions on the bottom
@@ -26,9 +26,9 @@ const JobDetails = (props) => {
 
 
   const jobDetailItems = props.sortedJobsArr.map((jobItem, index) => {
-    console.log(flexItemWidth)
+
     return (
-      <li key={jobItem.id} onClick={((e) => props.handleJobLevelSelect(jobItem, index))} className={props.activeIndex === index ? 'active' : ''} style={itemWidthStyle}>
+      <li key={jobItem.id} onClick={((e) => props.handleJobLevelSelect(jobItem, index))} className={props.activeIndex === index ? `${styles.active}` : ''} style={itemWidthStyle}>
         <h3>{jobItem.jobLevel}</h3>
         <p>{jobItem.jobDescription}</p>
       </li>
@@ -36,7 +36,7 @@ const JobDetails = (props) => {
   });
 
   return (
-    <ul className="jobDetailItems">{jobDetailItems}</ul>
+    <ul className={styles.jobDetailItems}>{jobDetailItems}</ul>
   );
 
 };

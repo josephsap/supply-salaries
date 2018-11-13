@@ -1,0 +1,58 @@
+@import './_variables';
+
+body {
+  font-family: brandon-grotesque, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  color: $darkGray;
+  background-color: $backgroundGray;
+}
+
+:global(select) {
+  border: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  color: $gold;
+  text-transform: uppercase;
+  font-weight: 700;
+  position: relative;
+  background-color: white;
+  cursor: pointer;
+  padding: 10px 25px 10px 10px;
+}
+
+.jobDetailItems {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: visible;
+
+  li {
+    flex: 0 0 auto;
+    padding: 10px;
+    list-style: none;
+    border-top: 2px solid $darkGray;
+    position: relative;
+    cursor: pointer;
+  }
+
+  h3 {
+    text-transform: uppercase;
+  }
+}
+
+.active::after {
+  position: absolute;
+  content: '';
+  width: 15px;
+  height: 15px;
+  background-color: $gold;
+  border-radius: 50%;
+  top: -19px;
+  left: 50%;
+  margin-left: -15px;
+  border: 10px solid $backgroundGray;
+}
+
+h1, h2 {
+  color: $gold;
+  font-weight: 700;
+}

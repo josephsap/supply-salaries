@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import './App.css';
+import 'normalize.css'
 import styles from './styles/app.module.scss';
 import axios from 'axios';
 import SVGS from './components/svgs';
@@ -108,14 +108,14 @@ class App extends Component {
     const loading = this.state.loading;
     return (
       <div className="App">
-        <div className="top-bar">
+        <div className="topBar">
           <div className="container">
             <SVGS />
           </div>
         </div>
         { loading && <div>loading@@ </div>}
         {!loading &&
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} className={styles.textCenter}>
             <PositionSelect 
               { ...this.state }
               controlFunction={this.handlePositionChange}
@@ -125,7 +125,7 @@ class App extends Component {
               { ...this.state }
               controlFunction={this.handleLocationChange}
             />
-            { this.state.selectedPositionValue !== null && this.state.selectedLocationValue !== null && <input type="submit" value="submit" /> }
+            { this.state.selectedPositionValue !== null && this.state.selectedLocationValue !== null && <button type="submit" value="submit" className={styles.submitBtn}><span>Submit</span></button> }
           </form>
         }
         <div className={styles.jobContainer}>

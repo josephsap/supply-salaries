@@ -1,6 +1,6 @@
 @import './_variables';
-.top-bar {
-    background-color: $background-gray;
+.topBar {
+    background-color: $backgroundGray;
     position: static;
     height: 250px;
     border-bottom: 2px solid #ccc;
@@ -119,8 +119,6 @@
     }
 
     h1 {
-        color: $gold;
-        font-weight: 700;
         letter-spacing: 2px;
         font-size: 1.75em;
         margin-bottom: 8px;
@@ -129,4 +127,8 @@
         //   margin-bottom: 1px;
         // }
     }
+}
+
+.text-center {
+  text-align: center;
 }
