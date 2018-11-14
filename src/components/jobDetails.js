@@ -7,20 +7,20 @@ const JobDetails = (props) => {
   
   // even out the flex items
   let flexItemWidth;
+  let itemWidthStyle;
 
   if(props.sortedJobsArr.length > 0) {
     flexItemWidth = 100 / props.sortedJobsArr.length;
   }
 
-  let itemWidthStyle = {
-    flex: '0 0 auto',
-    width: flexItemWidth + '%'
-  };
-
   if(window.innerWidth >= 768) {
     itemWidthStyle = {
       flex: '0 0' + flexItemWidth + '%',
       width: flexItemWidth + '%'
+    };
+  } else {
+    itemWidthStyle = {
+      flex: '0 0 auto'
     };
   }
 
