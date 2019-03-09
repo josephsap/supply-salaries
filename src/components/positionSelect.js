@@ -20,9 +20,7 @@ const PositionSelect = (props) => {
       <p className={styles.inlineBlock}>I'm curious what a</p>
       <div className={styles.selectWrapper}>
         <select onChange={props.controlFunction} value={props.selectedPositionValue}>
-          <option defaultValue="category" selected disabled hidden>
-            Category
-          </option>
+          <option value=" ">Choose a job</option>
           { makePositionSelectOptions }
         </select>
       </div>

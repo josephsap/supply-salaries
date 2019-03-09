@@ -17,8 +17,8 @@ class App extends Component {
   state = {
     loading: true,
     initialJobs: [],
-    selectedPositionValue: null,
-    selectedLocationValue: null,
+    selectedPositionValue: "Position",
+    selectedLocationValue: "Location",
     selectedJobData: [],
     activeIndex: 0,
     sortedJobs: [],
@@ -31,8 +31,9 @@ class App extends Component {
       this.setState({
         initialJobs: response.data,
         loading: false
+      }, () => {
+        this.sortJobsLowToHigh();
       });
-      this.sortJobsLowToHigh();
     })
     .catch(function (error) {
       console.log(error);
@@ -82,7 +83,6 @@ class App extends Component {
   }
 
   handleSubmit = (e) => {
-
     e.preventDefault();
     axios.get(`https://events.thesupply.com/api/salaries/${this.state.selectedPositionValue}/${this.state.selectedLocationValue}`)
     .then(response => {
@@ -119,7 +119,6 @@ class App extends Component {
             <PositionSelect 
               { ...this.state }
               controlFunction={this.handlePositionChange}
-              defaultOption="Category"
             />
             <LocationSelect
               { ...this.state }

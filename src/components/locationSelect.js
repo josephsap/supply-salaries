@@ -15,12 +15,13 @@ const LocationSelect = (props) => {
     );
   });
   
+
   return (
     <Fragment>
       <p className={styles.inlineBlock}>Should make in</p>
       <div className={styles.selectWrapper}>
         <select onChange={props.controlFunction} value={props.selectedLocationValue}>
-          <option defaultValue="location" selected disabled hidden>
+          <option value="location" defaultValue="location">
             Location
           </option>
           { locationSelectOptions }
