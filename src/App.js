@@ -73,14 +73,14 @@ class App extends Component {
     this.setState({selectedLocationValue: e.target.value});
   }
 
-  getJob = () => {
+  // getJob = () => {
 
-    // makes the job with the lowest salary active on submit
-    const poorJob = this.state.selectedJobData.sort((a, b) => parseFloat(a.salaryLow) - parseFloat(b.salaryLow));
-    this.setState({
-      activeJobItem: poorJob[0]
-    });
-  }
+  //   // makes the job with the lowest salary active on submit
+  //   const poorJob = this.state.selectedJobData.sort((a, b) => parseFloat(a.salaryLow) - parseFloat(b.salaryLow));
+  //   this.setState({
+  //     activeIndex: this.state.activeIndex
+  //   });
+  // }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -92,12 +92,8 @@ class App extends Component {
           loading: false,
           selectedPositionValue: this.state.selectedPositionValue,
           selectedLocationValue: this.state.selectedLocationValue,
-          activeIndex: 0
         }
       });
-    })
-    .then(data => {
-      this.getJob()
     })
     .catch(function(err) {
       console.log(err);
