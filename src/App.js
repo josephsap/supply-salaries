@@ -16,32 +16,51 @@ class App extends Component {
 
   state = {
     loading: true,
-    initialJobs: [],
     selectedPositionValue: "Position",
     selectedLocationValue: "Location",
-    selectedJobData: [],
+    descriptions: [],
     activeIndex: 0,
     sortedJobs: [],
-    activeJobItem: null
+    activeJobItem: null,
+    titles: [],
+    locations: [],
   }
 
   componentDidMount() {
-    axios.get('https://events.thesupply.com/api/salaries/')
-    .then(response => {
-      this.setState({
-        initialJobs: response.data,
-        loading: false
-      }, () => {
-        this.sortJobsLowToHigh();
-      });
-    })
-    .catch(function (error) {
-      console.log(error);
+    this.setState({
+      loading: true
     });
+    function getTitles() {
+      return axios.get('https://events.thesupply.com/api/salaries/titles');
+    }
+    
+    function getLocations() {
+      return axios.get('https://events.thesupply.com/api/salaries/locations');
+    }
+    
+    function getDefaultDescriptions() {
+      return axios.get('https://events.thesupply.com/api/salaries/digital-producer');
+    }
+
+    let _this = this;
+    axios.all([getTitles(), getLocations(), getDefaultDescriptions()])
+      .then(axios.spread(function (titles, locations, descriptions) {
+        _this.setState({
+          titles: titles.data,
+          locations: locations.data,
+          descriptions: descriptions.data,
+          loading: false
+        }, () => {
+          if (!_this.state.loading) {
+            _this.sortJobsLowToHigh();
+          }
+        });
+      })
+    );
   }
 
   sortJobsLowToHigh() {
-    const uniqueJobLevels = _.uniqBy(this.state.initialJobs, function(item) {
+    const uniqueJobLevels = _.uniqBy(this.state.descriptions, function(item) {
       return item.jobLevel;
     });
 
@@ -54,7 +73,7 @@ class App extends Component {
 
   handleJobLevelSelect = (item, index) => {
 
-    const clickedJobLevel = this.state.selectedJobData.find((selectedJob) => {
+    const clickedJobLevel = this.state.descriptions.find((selectedJob) => {
       return selectedJob.jobLevel === item.jobLevel;
     });
 
@@ -73,26 +92,20 @@ class App extends Component {
     this.setState({selectedLocationValue: e.target.value});
   }
 
-  // getJob = () => {
-
-  //   // makes the job with the lowest salary active on submit
-  //   const poorJob = this.state.selectedJobData.sort((a, b) => parseFloat(a.salaryLow) - parseFloat(b.salaryLow));
-  //   this.setState({
-  //     activeIndex: this.state.activeIndex
-  //   });
-  // }
-
   handleSubmit = (e) => {
     e.preventDefault();
+    const _this = this;
     axios.get(`https://events.thesupply.com/api/salaries/${this.state.selectedPositionValue}/${this.state.selectedLocationValue}`)
     .then(response => {
       this.setState(function(prevState, props){
         return {
-          selectedJobData: response.data,
+          descriptions: response.data,
           loading: false,
           selectedPositionValue: this.state.selectedPositionValue,
           selectedLocationValue: this.state.selectedLocationValue,
         }
+      }, () => {
+        _this.sortJobsLowToHigh();
       });
     })
     .catch(function(err) {
@@ -113,11 +126,11 @@ class App extends Component {
         {!loading &&
           <form onSubmit={this.handleSubmit} className={styles.textCenter}>
             <PositionSelect 
-              { ...this.state }
+              titles={this.state.titles}
               controlFunction={this.handlePositionChange}
             />
             <LocationSelect
-              { ...this.state }
+              locations={this.state.locations}
               controlFunction={this.handleLocationChange}
             />
             { this.state.selectedPositionValue !== null && this.state.selectedLocationValue !== null && <button type="submit" value="submit" className={styles.submitBtn}><span>Submit</span></button> }
@@ -125,7 +138,12 @@ class App extends Component {
         }
         <div className={styles.jobContainer}>
           <SalaryResults activeJob={this.state.activeJobItem}isLoading={this.state.loading}/>
-          <JobDetails jobItemDescriptions={this.state.initialJobs} handleJobLevelSelect={this.handleJobLevelSelect} sortedJobsArr={this.state.sortedJobs} activeIndex={this.state.activeIndex}/>
+          <JobDetails
+            descriptions={this.state.descriptions}
+            handleJobLevelSelect={this.handleJobLevelSelect}
+            sortedJobsArr={this.state.sortedJobs}
+            activeIndex={this.state.activeIndex}
+          />
         </div>
       </div>
     );

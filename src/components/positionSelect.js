@@ -1,17 +1,13 @@
 import React, { Fragment } from 'react';
-import _ from 'lodash';
 import styles from '../styles/app.module.scss';
 
 
 const PositionSelect = (props) => {
+  const { titles, controlFunction, selectedPositionValue } = props;
 
-  const uniquePositionNames = _.uniqBy(props.initialJobs, function(item) {
-    return item.jobTitle;
-  });
-
-  const makePositionSelectOptions = uniquePositionNames.map((position) => {
+  const makePositionSelectOptions = titles.map((title) => {
     return (
-      <option key={position.id} value={position.slug}>{position.jobTitle}</option>
+      <option key={title.id} value={title.slug}>{title.jobTitle}</option>
     );
   });
 
@@ -19,8 +15,8 @@ const PositionSelect = (props) => {
     <Fragment>
       <p className={styles.inlineBlock}>I'm curious what a</p>
       <div className={styles.selectWrapper}>
-        <select onChange={props.controlFunction} value={props.selectedPositionValue}>
-          <option value=" ">Choose a job</option>
+        <select onChange={controlFunction} value={selectedPositionValue}>
+          <option value=" " key="pos1">Choose a job</option>
           { makePositionSelectOptions }
         </select>
       </div>

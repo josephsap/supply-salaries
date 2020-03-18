@@ -4,13 +4,13 @@ import styles from '../styles/main.module.scss';
 
 // render the job descriptions on the bottom
 const JobDetails = (props) => {
-  
+  const { descriptions, sortedJobsArr, activeIndex, handleJobLevelSelect } = props;
   // even out the flex items
   let flexItemWidth;
   let itemWidthStyle;
 
-  if(props.sortedJobsArr.length > 0) {
-    flexItemWidth = 100 / props.sortedJobsArr.length;
+  if(sortedJobsArr.length > 0) {
+    flexItemWidth = 100 / sortedJobsArr.length;
   }
 
   if(window.innerWidth >= 768) {
@@ -24,11 +24,13 @@ const JobDetails = (props) => {
     };
   }
 
+  console.log(props, '000------99999')
 
-  const jobDetailItems = props.sortedJobsArr.map((jobItem, index) => {
+
+  const jobDetailItems = sortedJobsArr.map((jobItem, index) => {
 
     return (
-      <li key={jobItem.id} onClick={((e) => props.handleJobLevelSelect(jobItem, index))} className={props.activeIndex === index ? `${styles.active}` : ''} style={itemWidthStyle}>
+      <li key={jobItem.id} onClick={((e) => handleJobLevelSelect(jobItem, index))} className={activeIndex === index ? `${styles.active}` : ''} style={itemWidthStyle}>
         <h3>{jobItem.jobLevel}</h3>
         <p>{jobItem.jobDescription}</p>
       </li>
