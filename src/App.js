@@ -27,9 +27,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      loading: true
-    });
     function getTitles() {
       return axios.get('https://events.thesupply.com/api/salaries/titles');
     }
@@ -60,6 +57,7 @@ class App extends Component {
   }
 
   sortJobsLowToHigh() {
+    const _this = this;
     const uniqueJobLevels = _.uniqBy(this.state.descriptions, function(item) {
       return item.jobLevel;
     });
@@ -68,11 +66,12 @@ class App extends Component {
 
     this.setState({
       sortedJobs: sortedBySalaryLow
+    }, () => {
+      _this.setActiveSalaryRange();
     });
   }
 
   handleJobLevelSelect = (item, index) => {
-
     const clickedJobLevel = this.state.descriptions.find((selectedJob) => {
       return selectedJob.jobLevel === item.jobLevel;
     });
@@ -81,7 +80,6 @@ class App extends Component {
       activeIndex: index,
       activeJobItem: clickedJobLevel
     });
-
   }
 
   handlePositionChange = (e) => {
@@ -92,17 +90,33 @@ class App extends Component {
     this.setState({selectedLocationValue: e.target.value});
   }
 
+  setActiveSalaryRange() {
+    if (this.state.selectedPositionValue === 'Position' && this.state.selectedLocationValue === 'Location' && this.state.activeIndex === 0) {
+      this.setState({
+        activeJobItem: null
+      });
+    } else {
+      this.setState({
+        activeJobItem: this.state.sortedJobs[this.state.activeIndex]
+      });
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
+    // this.setState({
+    //   loading: true
+    // });
     const _this = this;
     axios.get(`https://events.thesupply.com/api/salaries/${this.state.selectedPositionValue}/${this.state.selectedLocationValue}`)
     .then(response => {
       this.setState(function(prevState, props){
         return {
           descriptions: response.data,
-          loading: false,
           selectedPositionValue: this.state.selectedPositionValue,
           selectedLocationValue: this.state.selectedLocationValue,
+          activeIndex: this.state.activeIndex || 0,
+          loading: false
         }
       }, () => {
         _this.sortJobsLowToHigh();
@@ -137,9 +151,8 @@ class App extends Component {
           </form>
         }
         <div className={styles.jobContainer}>
-          <SalaryResults activeJob={this.state.activeJobItem}isLoading={this.state.loading}/>
+          <SalaryResults activeJob={this.state.activeJobItem} isLoading={this.state.loading} />
           <JobDetails
-            descriptions={this.state.descriptions}
             handleJobLevelSelect={this.handleJobLevelSelect}
             sortedJobsArr={this.state.sortedJobs}
             activeIndex={this.state.activeIndex}
