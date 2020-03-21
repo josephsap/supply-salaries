@@ -16,8 +16,8 @@ class App extends Component {
 
   state = {
     loading: true,
-    selectedPositionValue: "Position",
-    selectedLocationValue: "Location",
+    selectedPositionValue: "position",
+    selectedLocationValue: "location",
     descriptions: [],
     activeIndex: 0,
     sortedJobs: [],
@@ -91,7 +91,7 @@ class App extends Component {
   }
 
   setActiveSalaryRange() {
-    if (this.state.selectedPositionValue === 'Position' && this.state.selectedLocationValue === 'Location' && this.state.activeIndex === 0) {
+    if (this.state.selectedPositionValue === 'position' && this.state.selectedLocationValue === 'location' && this.state.activeIndex === 0) {
       this.setState({
         activeJobItem: null
       });
@@ -147,11 +147,21 @@ class App extends Component {
               locations={this.state.locations}
               controlFunction={this.handleLocationChange}
             />
-            { this.state.selectedPositionValue !== null && this.state.selectedLocationValue !== null && <button type="submit" value="submit" className={styles.submitBtn}><span>Submit</span></button> }
+          {this.state.selectedPositionValue !== 'position' && this.state.selectedLocationValue !== 'location' ? (
+            <button type="submit" value="submit" className={styles.submitBtn}><span>Submit</span></button>
+          ) : (
+            <button type="submit" disabled value="submit" className={`${styles.submitBtn} ${styles.disabledButton}`}><span>Submit</span></button>
+          )
+          }
           </form>
         }
         <div className={styles.jobContainer}>
-          <SalaryResults activeJob={this.state.activeJobItem} isLoading={this.state.loading} />
+          <SalaryResults
+            activeJob={this.state.activeJobItem}
+            isLoading={this.state.loading}
+            posVal={this.state.selectedPositionValue}
+            locVal={this.state.selectedLocationValue}
+          />
           <JobDetails
             handleJobLevelSelect={this.handleJobLevelSelect}
             sortedJobsArr={this.state.sortedJobs}

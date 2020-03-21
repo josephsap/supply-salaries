@@ -11,7 +11,7 @@ const LocationSelect = (props) => {
       <div className={styles.selectWrapper}>
         <select onChange={controlFunction} value={selectedLocationValue}>
           <option value="location" defaultValue="location" key="location">
-            Location
+            location
           </option>
           { locationSelectOptions }
         </select>

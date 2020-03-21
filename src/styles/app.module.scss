@@ -6,7 +6,7 @@
 
 .jobContainer {
   width: 96%;
-  margin: 9vw 2%;
+  margin: 5vw 2%;
   text-align: center;
 }
 
@@ -98,4 +98,10 @@
   cursor: pointer;
   -webkit-appearance: none;
   @extend .draw-border;
+}
+
+.disabledButton {
+  box-shadow: inset 0 0 0 2px #d8d8d8;
+  color: #d8d8d8;
+  pointer-events: none;
 }
