@@ -1,0 +1,16 @@
+.loadingRotate {
+  max-width: 60px;
+  animation: ROTATE-CASH 1.5s infinite;
+}
+
+@keyframes ROTATE-CASH {
+  0% {
+    transform: rotate(0);
+  }
+  80% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

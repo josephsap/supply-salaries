@@ -30,6 +30,7 @@ body {
 
   li {
     flex: 0 0 auto;
+    // opacity: 0;
     padding: 10px;
     list-style: none;
     border-top: 2px solid $darkGray;
@@ -41,6 +42,11 @@ body {
   h3 {
     text-transform: uppercase;
   }
+}
+
+.jobsLoading {
+  margin: 0 auto;
+  border-top: none !important;
 }
 
 .active::after {

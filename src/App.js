@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import 'normalize.css'
 import styles from './styles/app.module.scss';
+import loadingStyles from './styles/loading.module.scss';
 import axios from 'axios';
 import SVGS from './components/svgs';
+import Banknote from './icons/banknote.png';
 import PositionSelect from './components/positionSelect';
 import LocationSelect from './components/locationSelect';
 import JobDetails from './components/jobDetails';
@@ -136,7 +138,11 @@ class App extends Component {
             <SVGS />
           </div>
         </div>
-        { loading && <div>loading@@ </div>}
+        { loading &&
+          <form onSubmit={this.handleSubmit} className={styles.textCenter}>
+            <img src={Banknote} className={loadingStyles.loadingRotate} />
+          </form>
+        }
         {!loading &&
           <form onSubmit={this.handleSubmit} className={styles.textCenter}>
             <PositionSelect 
@@ -166,6 +172,7 @@ class App extends Component {
             handleJobLevelSelect={this.handleJobLevelSelect}
             sortedJobsArr={this.state.sortedJobs}
             activeIndex={this.state.activeIndex}
+            loading={this.state.loading}
           />
         </div>
       </div>

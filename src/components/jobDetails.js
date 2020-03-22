@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/main.module.scss';
+import loadingStyles from '../styles/loading.module.scss';
+import Banknote from '../icons/banknote.png';
 
 
 // render the job descriptions on the bottom
 const JobDetails = (props) => {
-  const { sortedJobsArr, activeIndex, handleJobLevelSelect } = props;
+  const { sortedJobsArr, activeIndex, handleJobLevelSelect, loading } = props;
+  const [inProp, setInProp] = useState(false);
   // even out the flex items
   let flexItemWidth;
   let itemWidthStyle;
@@ -35,7 +38,14 @@ const JobDetails = (props) => {
   });
 
   return (
-    <ul className={styles.jobDetailItems}>{jobDetailItems}</ul>
+    <ul className={styles.jobDetailItems}>
+      {loading && 
+        <li className={styles.jobsLoading}>
+          <img src={Banknote} className={loadingStyles.loadingRotate} />
+        </li>
+      }
+      {!loading && jobDetailItems}
+    </ul>
   );
 
 };
