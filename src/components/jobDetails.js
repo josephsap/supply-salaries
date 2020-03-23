@@ -1,13 +1,28 @@
 import React, { useState } from 'react';
+import { useTrail, animated } from 'react-spring';
 import styles from '../styles/main.module.scss';
 import loadingStyles from '../styles/loading.module.scss';
 import Banknote from '../icons/banknote.png';
 
-
 // render the job descriptions on the bottom
 const JobDetails = (props) => {
+  const [doneAnimating, setDoneAnimating] = useState(false);
+  const animatedItems = [];
   const { sortedJobsArr, activeIndex, handleJobLevelSelect, loading } = props;
-  const [inProp, setInProp] = useState(false);
+  const config = { mass: 5, tension: 2000, friction: 200 };
+  const trail = useTrail(sortedJobsArr.length, {
+    config,
+    opacity: loading ? 0 : 1,
+    x: loading ? 50 : 0,
+    from: { opacity: 0, x: 80 },
+    // onRest: (item) => {
+    //   animatedItems.push(item);
+    //   if (animatedItems.length === sortedJobsArr.length) {
+    //     setDoneAnimating(true);
+    //   }
+    // }
+  });
+
   // even out the flex items
   let flexItemWidth;
   let itemWidthStyle;
@@ -27,18 +42,21 @@ const JobDetails = (props) => {
     };
   }
 
-  const jobDetailItems = sortedJobsArr.map((jobItem, index) => {
-
+  const jobDetailItems = trail.map(({ x, height, ...rest }, index) => {
     return (
-      <li key={jobItem.jobLevel} onClick={((e) => handleJobLevelSelect(jobItem, index))} className={activeIndex === index ? `${styles.active}` : ''} style={itemWidthStyle}>
-        <h3>{jobItem.jobLevel}</h3>
-        <p>{jobItem.jobDescription}</p>
-      </li>
+      <animated.li
+        onClick={((e) => handleJobLevelSelect(sortedJobsArr[index], index))}
+        key={sortedJobsArr[index].jobLevel}
+        className={`${activeIndex === index ? `${styles.active}` : ''}`}
+        style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`), ...itemWidthStyle }}>
+          <h3>{sortedJobsArr[index].jobLevel}</h3>
+          <p>{sortedJobsArr[index].jobDescription}</p>
+      </animated.li>
     );
   });
 
   return (
-    <ul className={styles.jobDetailItems}>
+    <ul className={styles.jobDetailItems} key={Math.random()}>
       {loading && 
         <li className={styles.jobsLoading}>
           <img src={Banknote} className={loadingStyles.loadingRotate} />
@@ -47,8 +65,6 @@ const JobDetails = (props) => {
       {!loading && jobDetailItems}
     </ul>
   );
-
 };
-
 
 export default JobDetails;
