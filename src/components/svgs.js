@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTrail, animated, config } from 'react-spring';
+import Fade from 'react-reveal/Fade';
 import styles from '../styles/svgs.module.scss';
 
 const SVGConfig = [
@@ -95,17 +96,21 @@ const SVGConfig = [
 
 const SVGS = ({ loading }) => {
   const trail = useTrail(SVGConfig.length, {
-    config: config.gentle,
+    config: { mass: 1, tension: 200, friction: 24},
     opacity: loading ? 0 : 1,
-    height: loading ? 0 : 28,
-    marginTop: loading ? -80 : 0,
-    from: { opacity: 0, height: 0, marginTop: 0 },
+    height: loading ? 0 : 30,
+    marginTop: loading ? -20 : 0,
+    from: { opacity: 0, height: 0, marginTop: -20 },
   });
 
   return (
     <div className={styles.svgWrapper}>
-      <h1 className={styles.textCenter}>Industry Salaries</h1>
-      <h4 className={`${styles.textCenter} ${styles.subhead}`}>Thoughts on salary ranges we see in our realm of talent</h4>
+      <Fade top cascade when={!loading} duration={1200}>
+        <div className={styles.textCenter}>
+          <h1>Industry Salaries</h1>
+          <h4 className={styles.subhead}>Thoughts on salary ranges we see in our realm of talent</h4>
+        </div>
+      </Fade>
       {trail.map(({ height, ...rest }, index) => (
         <animated.span
           key={index}

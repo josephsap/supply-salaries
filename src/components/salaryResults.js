@@ -1,4 +1,5 @@
 import React from 'react';
+import Fade from 'react-reveal/Fade';
 import styles from '../styles/salaryResults.module.scss';
 
 const SalaryResults = (props) => {
@@ -18,7 +19,9 @@ const SalaryResults = (props) => {
     );
     } else {
       return (
-        <h4>Select both a Job and a Location to see the estimated salary rages.</h4>
+        <Fade top cascade when={!props.loading} duration={1200}>
+          <h4>Select both a Job and a Location to see the estimated salary rages.</h4>
+        </Fade>
       );
     }
 };

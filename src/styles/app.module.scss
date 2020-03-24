@@ -8,10 +8,20 @@
   width: 96%;
   margin: 5vw 2%;
   text-align: center;
+  opacity: 0;
 }
 
 .textCenter {
   text-align: center;
+}
+
+.selectsWrapper {
+  opacity: 0;
+}
+
+.fadeStuff {
+  opacity: 1 !important;
+  transition: 2s ease !important;
 }
 
 .selectWrapper {

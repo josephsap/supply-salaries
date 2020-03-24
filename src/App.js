@@ -133,10 +133,10 @@ class App extends Component {
   render() {
     const loading = this.state.loading;
     return (
-      <div className="App">
+      <div className={!loading ? `${styles.fadeStuff} ${styles.selectsWrapper}` : `${styles.selectsWrapper}`}>
         <div className={svgStyles.topBar}>
           <div className={svgStyles.container}>
-            <SVGS loading={this.state.loading} />
+            <SVGS loading={loading} />
           </div>
         </div>
         { loading &&
@@ -162,10 +162,10 @@ class App extends Component {
           }
           </form>
         }
-        <div className={styles.jobContainer}>
+        <div className={loading ? `${styles.jobContainer}` : `${styles.jobContainer} ${styles.fadeStuff}`}>
           <SalaryResults
             activeJob={this.state.activeJobItem}
-            isLoading={this.state.loading}
+            loading={loading}
             posVal={this.state.selectedPositionValue}
             locVal={this.state.selectedLocationValue}
           />
@@ -173,7 +173,7 @@ class App extends Component {
             handleJobLevelSelect={this.handleJobLevelSelect}
             sortedJobsArr={this.state.sortedJobs}
             activeIndex={this.state.activeIndex}
-            loading={this.state.loading}
+            loading={loading}
           />
         </div>
       </div>
