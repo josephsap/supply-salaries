@@ -3,7 +3,6 @@ import _ from 'lodash';
 import 'normalize.css'
 import styles from './styles/app.module.scss';
 import loadingStyles from './styles/loading.module.scss';
-import svgStyles from './styles/svgs.module.scss';
 import axios from 'axios';
 import SVGS from './components/svgs';
 import Banknote from './icons/banknote.png';
@@ -133,10 +132,10 @@ class App extends Component {
   render() {
     const loading = this.state.loading;
     return (
-      <div className={!loading ? `${styles.fadeStuff} ${styles.selectsWrapper}` : `${styles.selectsWrapper}`}>
-        <div className={svgStyles.topBar}>
-          <div className={svgStyles.container}>
-            <SVGS loading={loading} />
+      <div className="App">
+        <div className="topBar">
+          <div className="container">
+            <SVGS />
           </div>
         </div>
         { loading &&
