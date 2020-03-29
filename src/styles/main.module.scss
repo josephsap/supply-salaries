@@ -28,6 +28,7 @@ body {
   margin-top: 10vw;
   padding-top: 12px;
   padding-left: 0;
+  position: relative;
 
   li {
     flex: 0 0 auto;
@@ -46,23 +47,48 @@ body {
   }
 }
 
+.jobItem {
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background-color: $backgroundGrayHover;
+    transition: 0.3s ease-in-out;
+  }
+}
+
 .jobsLoading {
   margin: 0 auto;
   border-top: none !important;
 }
+.active {
+  transition: 0.8s ease-in-out;
+  position: relative;
 
-.active::after {
-  position: absolute;
-  content: '';
-  width: 15px;
-  height: 15px;
-  background-color: $gold;
-  border-radius: 50%;
-  top: -19px;
-  left: 50%;
-  margin-left: -15px;
-  border: 10px solid $backgroundGray;
+  .dot {
+    background: aqua;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 13px);
+    transition: 0.8s ease-in-out;
+  }
 }
+
+
+
+// .active::after {
+//   position: absolute;
+//   content: '';
+//   width: 15px;
+//   height: 15px;
+//   background-color: $gold;
+//   border-radius: 50%;
+//   top: -19px;
+//   left: 50%;
+//   margin-left: -15px;
+//   border: 10px solid $backgroundGray;
+//   transition: 0.3s ease-in-out;
+// }
 
 h1, h2 {
   color: $gold;

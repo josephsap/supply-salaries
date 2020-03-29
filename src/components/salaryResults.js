@@ -23,9 +23,9 @@ const SalaryResults = (props) => {
     );
     } else {
       return (
-        <Fade top cascade when={!loading} duration={1200}>
+        <div className={!loading ? `${styles.textFocusIn}` : ''}>
           <h4 className={styles.introText}>Select both a Job and a Location to see the estimated salary rages.</h4>
-        </Fade>
+        </div>
       );
     }
 };
