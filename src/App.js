@@ -109,7 +109,7 @@ const App = (props) => {
             <div className={styles.jobContainer}>
               <SalaryResults
                 activeJob={activeJobItem}
-                loading={loading}
+                handleSubmitLoading={handleSubmitLoading}
                 posVal={selectedPositionValue}
                 locVal={selectedLocationValue}
               />
@@ -117,7 +117,6 @@ const App = (props) => {
                 handleJobLevelSelect={handleJobLevelSelect}
                 sortedJobsArr={sortedJobs}
                 activeIndex={activeIndex}
-                loading={loading}
               />
             </div>
           </div>

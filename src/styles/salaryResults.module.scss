@@ -14,6 +14,8 @@
   align-items: center;
   justify-content: center;
   align-items: flex-start;
+  height: 160px;
+  opacity: 0;
 }
 
 .numberContainer {
@@ -26,4 +28,11 @@
   h3 {
     margin-bottom: 5px;
   }
+}
+
+.introText {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

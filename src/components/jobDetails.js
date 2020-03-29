@@ -21,7 +21,7 @@ const JobDetails = (props) => {
     itemWidthStyle = {
       flex: '0 0 auto'
     };
-  }
+  };
 
   const jobDetailItems = sortedJobsArr.map((jobItem, index) => (
       <li
@@ -36,7 +36,7 @@ const JobDetails = (props) => {
   );
 
   return (
-    <ul className={styles.jobDetailItems} key={Math.random()}>
+    <ul className={styles.jobDetailItems}>
       {jobDetailItems}
     </ul>
   );
