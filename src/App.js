@@ -1,183 +1,130 @@
-import React, { Component } from 'react';
-import _ from 'lodash';
+import React, { useState, useEffect } from 'react';
 import 'normalize.css'
-import styles from './styles/app.module.scss';
-import loadingStyles from './styles/loading.module.scss';
 import axios from 'axios';
+import styles from './styles/app.module.scss';
 import SVGS from './components/svgs';
-import Banknote from './icons/banknote.png';
 import PositionSelect from './components/positionSelect';
 import LocationSelect from './components/locationSelect';
 import JobDetails from './components/jobDetails';
 import SalaryResults from './components/salaryResults';
+import withDataFetching from './components/withDataFetching';
+import LoadingScreen from './components/loadingScreen';
 
 
-class App extends Component {
+const App = (props) => {
+  const { loading, titles, locations } = props;
+  const [sortedJobs, setSortedJobs] = useState([]);
+  const [selectedPositionValue, setSelectedPositionValue] = useState('position');
+  const [selectedLocationValue, setSelectedLocationValue] = useState('location');
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeJobItem, setActiveJobItem] = useState(null);
+  const [descriptions, setDescriptions] = useState([]);
+  const [handleSubmitLoading, setHandleSubmitLoading] = useState(false);
 
-  // http://events.thesupply.com/api/salaries/developer/seattle
-
-  state = {
-    loading: true,
-    selectedPositionValue: "position",
-    selectedLocationValue: "location",
-    descriptions: [],
-    activeIndex: 0,
-    sortedJobs: [],
-    activeJobItem: null,
-    titles: [],
-    locations: [],
-  }
-
-  componentDidMount() {
-    function getTitles() {
-      return axios.get('https://events.thesupply.com/api/salaries/titles');
-    }
-    
-    function getLocations() {
-      return axios.get('https://events.thesupply.com/api/salaries/locations');
-    }
-    
-    function getDefaultDescriptions() {
-      return axios.get('https://events.thesupply.com/api/salaries/digital-producer');
-    }
-
-    let _this = this;
-    axios.all([getTitles(), getLocations(), getDefaultDescriptions()])
-      .then(axios.spread(function (titles, locations, descriptions) {
-        _this.setState({
-          titles: titles.data,
-          locations: locations.data,
-          descriptions: descriptions.data,
-          loading: false
-        }, () => {
-          if (!_this.state.loading) {
-            _this.sortJobsLowToHigh();
-          }
-        });
-      })
-    );
-  }
-
-  sortJobsLowToHigh() {
-    const _this = this;
-    const uniqueJobLevels = _.uniqBy(this.state.descriptions, function(item) {
-      return item.jobLevel;
-    });
-
-    const sortedBySalaryLow = uniqueJobLevels.sort((a, b) => parseFloat(a.salaryLow) - parseFloat(b.salaryLow));
-
-    this.setState({
-      sortedJobs: sortedBySalaryLow
-    }, () => {
-      _this.setActiveSalaryRange();
-    });
-  }
-
-  handleJobLevelSelect = (item, index) => {
-    const clickedJobLevel = this.state.descriptions.find((selectedJob) => {
+  const handleJobLevelSelect = (item, index) => {
+    const clickedJobLevel = descriptions.find((selectedJob) => {
       return selectedJob.jobLevel === item.jobLevel;
     });
 
-    this.setState({
-      activeIndex: index,
-      activeJobItem: clickedJobLevel
-    });
+    setActiveIndex(index);
+    setActiveJobItem(clickedJobLevel);
   }
 
-  handlePositionChange = (e) => {
-    this.setState({selectedPositionValue: e.target.value});
+  const handlePositionChange = (e) => {
+    setSelectedPositionValue(e.target.value);
   }
 
-  handleLocationChange = (e) => {
-    this.setState({selectedLocationValue: e.target.value});
+  const handleLocationChange = (e) => {
+    setSelectedLocationValue(e.target.value);
   }
 
-  setActiveSalaryRange() {
-    if (this.state.selectedPositionValue === 'position' && this.state.selectedLocationValue === 'location' && this.state.activeIndex === 0) {
-      this.setState({
-        activeJobItem: null
-      });
+  const setActiveSalaryRange = () => {
+    if (selectedPositionValue === 'position' && selectedLocationValue === 'location' && activeIndex === 0) {
+      setActiveJobItem(null);
     } else {
-      this.setState({
-        activeJobItem: this.state.sortedJobs[this.state.activeIndex]
-      });
+      setActiveJobItem(sortedJobs[activeIndex]);
     }
-  }
+  };
 
-  handleSubmit = (e) => {
+  const sortJobsLowToHigh = () => {
+    const sortedBySalaryLow = descriptions.sort((a, b) => parseFloat(a.salaryLow) - parseFloat(b.salaryLow));
+    if (!handleSubmitLoading) {
+      setSortedJobs(sortedBySalaryLow);
+    }
+  };
+
+   const handleSubmit = (e) => {
     e.preventDefault();
-    // this.setState({
-    //   loading: true
-    // });
-    const _this = this;
-    axios.get(`https://events.thesupply.com/api/salaries/${this.state.selectedPositionValue}/${this.state.selectedLocationValue}`)
+    setHandleSubmitLoading(true);
+    axios.get(`https://events.thesupply.com/api/salaries/${selectedPositionValue}/${selectedLocationValue}`)
     .then(response => {
-      this.setState(function(prevState, props){
-        return {
-          descriptions: response.data,
-          selectedPositionValue: this.state.selectedPositionValue,
-          selectedLocationValue: this.state.selectedLocationValue,
-          activeIndex: this.state.activeIndex || 0,
-          loading: false
-        }
-      }, () => {
-        _this.sortJobsLowToHigh();
-      });
+      setDescriptions(response.data);
+      setActiveIndex(activeIndex || 0);
+      setSelectedPositionValue(selectedPositionValue);
+      setSelectedLocationValue(selectedLocationValue);
+      sortJobsLowToHigh();
+      setHandleSubmitLoading(false);
     })
     .catch(function(err) {
       console.log(err);
     });
   }
 
-  render() {
-    const loading = this.state.loading;
-    return (
-      <div className="App">
-        <div className="topBar">
-          <div className="container">
-            <SVGS />
+  useEffect(() => {
+    if (sortedJobs.length === 0) {
+      setDescriptions(props.descriptions);
+    } else {
+      setDescriptions(descriptions);
+    }
+    sortJobsLowToHigh();
+    setActiveSalaryRange();
+  }, [loading, descriptions, handleSubmitLoading, sortedJobs]);
+  
+  return (
+    <>
+      {loading
+        ? <LoadingScreen loading={props.loading} />
+        : (<div className="App">
+            <div className="topBar">
+              <div className="container">
+                <SVGS />
+              </div>
+            </div>
+            <form onSubmit={handleSubmit} className={styles.textCenter}>
+              <PositionSelect 
+                titles={titles}
+                controlFunction={handlePositionChange}
+              />
+              <LocationSelect
+                locations={locations}
+                controlFunction={handleLocationChange}
+              />
+            {selectedPositionValue !== 'position' && selectedLocationValue !== 'location' ? (
+              <button type="submit" value="submit" className={styles.submitBtn}><span>Submit</span></button>
+            ) : (
+              <button type="submit" disabled value="submit" className={`${styles.submitBtn} ${styles.disabledButton}`}><span>Submit</span></button>
+            )
+            }
+            </form>
+            <div className={styles.jobContainer}>
+              <SalaryResults
+                activeJob={activeJobItem}
+                loading={loading}
+                posVal={selectedPositionValue}
+                locVal={selectedLocationValue}
+              />
+              <JobDetails
+                handleJobLevelSelect={handleJobLevelSelect}
+                sortedJobsArr={sortedJobs}
+                activeIndex={activeIndex}
+                loading={loading}
+              />
+            </div>
           </div>
-        </div>
-        { loading &&
-          <form onSubmit={this.handleSubmit} className={styles.textCenter}>
-            <img src={Banknote} className={loadingStyles.loadingRotate} />
-          </form>
-        }
-        {!loading &&
-          <form onSubmit={this.handleSubmit} className={styles.textCenter}>
-            <PositionSelect 
-              titles={this.state.titles}
-              controlFunction={this.handlePositionChange}
-            />
-            <LocationSelect
-              locations={this.state.locations}
-              controlFunction={this.handleLocationChange}
-            />
-          {this.state.selectedPositionValue !== 'position' && this.state.selectedLocationValue !== 'location' ? (
-            <button type="submit" value="submit" className={styles.submitBtn}><span>Submit</span></button>
-          ) : (
-            <button type="submit" disabled value="submit" className={`${styles.submitBtn} ${styles.disabledButton}`}><span>Submit</span></button>
-          )
-          }
-          </form>
-        }
-        <div className={loading ? `${styles.jobContainer}` : `${styles.jobContainer} ${styles.fadeStuff}`}>
-          <SalaryResults
-            activeJob={this.state.activeJobItem}
-            loading={loading}
-            posVal={this.state.selectedPositionValue}
-            locVal={this.state.selectedLocationValue}
-          />
-          <JobDetails
-            handleJobLevelSelect={this.handleJobLevelSelect}
-            sortedJobsArr={this.state.sortedJobs}
-            activeIndex={this.state.activeIndex}
-            loading={loading}
-          />
-        </div>
-      </div>
-    );
-  }
+        )
+      }
+    </>
+  );
 }
 
-export default App;
+export default withDataFetching(App);

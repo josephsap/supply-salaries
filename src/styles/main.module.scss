@@ -1,8 +1,9 @@
 @import './_variables';
 
 body {
-  font-family: brandon-grotesque, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-family: "brandon-grotesque", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
   color: $darkGray;
   background-color: $backgroundGray;
 }
@@ -19,32 +20,6 @@ body {
   cursor: pointer;
   padding: 10px 25px 10px 10px;
 }
-
-// https://stackoverflow.blog/2020/01/23/micro-interactions-with-react-spring-part-2/
-// <span className={doneAnimating ? `${styles.topBorder} ${styles.topBorderBaseStyles}` : `${styles.topBorderBaseStyles}`}></span>
-// .topBorder {
-//   width: 100% !important;
-//   animation: BORDER-WIDTH 0.75s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
-// }
-
-// .topBorderBaseStyles {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 0;
-//   height: 2px;
-//   background-color: $darkGray;
-// }
-
-// @keyframes BORDER-WIDTH {
-//   0% {
-//     width: 0;
-//   }
-//   100% {
-//     width: 100%;
-//   }
-// }
-
 
 .jobDetailItems {
   display: flex;
