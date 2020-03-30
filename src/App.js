@@ -84,7 +84,7 @@ const App = (props) => {
     <>
       {loading
         ? <LoadingScreen loading={props.loading} />
-        : (<div className="App">
+        : (<div className={styles.app}>
             <div className="topBar">
               <div className="container">
                 <SVGS />

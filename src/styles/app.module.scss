@@ -4,9 +4,15 @@
   display: inline-block;
 }
 
+.app {
+  max-width: 1200px;
+  padding: 0 30px;
+  margin: 0 auto;
+}
+
 .jobContainer {
-  width: 96%;
-  margin: 5vw 2%;
+  // width: 96%;
+  // margin: 5vw 2%;
   text-align: center;
 }
 
