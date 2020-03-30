@@ -25,7 +25,6 @@ body {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  margin-top: 10vw;
   padding-top: 12px;
   padding-left: 0;
   position: relative;
@@ -38,7 +37,6 @@ body {
     cursor: pointer;
     width: 20%;
     position: relative;
-    border-top: 2px solid $darkGray;
   }
 
   h3 {
@@ -59,26 +57,42 @@ body {
   margin: 0 auto;
   border-top: none !important;
 }
-.active {
-  transition: 0.8s ease-in-out;
-  position: relative;
 
+.active {
+  position: relative;
+}
+
+.slider {
+  border: 2px solid $darkGray;
+  position: relative;
+  margin-top: 10vw;
   .dot {
-    background: aqua;
-    width: 26px;
-    height: 26px;
     position: absolute;
-    top: 0;
-    left: calc(50% - 13px);
-    transition: 0.8s ease-in-out;
+    width: 36px;
+    height: 36px;
+    background-color: $backgroundGray;
+    border-radius: 50%;
+    top: -18px;
+    // margin-left: -52px;
+    z-index: 3;
+    transition: 0.5s ease-in-out;
+    &:after {
+      content: '';
+      width: 16px;
+      height: 16px;
+      background-color: $gold;
+      border-radius: 50%;
+      position: absolute;
+      top: calc(50% - 8px);
+      left: calc(50% - 8px);
+      z-index: 1;
+    }
   }
 }
 
 
-
 // .active::after {
 //   position: absolute;
-//   content: '';
 //   width: 15px;
 //   height: 15px;
 //   background-color: $gold;
