@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import styles from '../styles/main.module.scss';
+import MoneyStack from '../icons/money-stack.png';
 
 // render the job descriptions on the bottom
 const JobDetails = (props) => {
@@ -48,7 +49,6 @@ const JobDetails = (props) => {
     if (e) {
       const rect = e.currentTarget.getBoundingClientRect();
       const midPos = rect.left + (rect.width / 2);
-      console.log(midPos, sliderLeftPos, '---')
       setDotPos((midPos - sliderLeftPos) - 18);
     } 
   }
@@ -70,7 +70,10 @@ const JobDetails = (props) => {
   return (
     <div>
       <div className={styles.slider} ref={sliderRef}>
-        <span className={styles.dot} ref={dotRef} style={{ left: dotPos }}></span>
+        <div className={styles.dotWrap} ref={dotRef} style={{ left: dotPos }}>
+          <img src={MoneyStack} alt="money" className={styles.moneyStackImage} />
+          <span className={styles.dot}></span>
+        </div>
       </div>
       <ul className={styles.jobDetailItems}>
         {jobDetailItems}

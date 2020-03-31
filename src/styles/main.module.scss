@@ -45,6 +45,16 @@ body {
   }
 }
 
+.moneyStackImage {
+  max-width: 50px;
+  display: block;
+  position: absolute;
+  top: -45px;
+  left: 50%;
+  margin-left: -25px;
+
+}
+
 .jobItem {
   transition: 0.3s ease-in-out;
   &:hover {
@@ -66,43 +76,29 @@ body {
   border: 2px solid $darkGray;
   position: relative;
   margin-top: 10vw;
-  .dot {
-    position: absolute;
-    width: 36px;
-    height: 36px;
-    background-color: $backgroundGray;
-    border-radius: 50%;
-    top: -18px;
-    // margin-left: -52px;
-    z-index: 3;
-    transition: 0.5s ease-in-out;
-    &:after {
-      content: '';
-      width: 16px;
-      height: 16px;
-      background-color: $gold;
-      border-radius: 50%;
-      position: absolute;
-      top: calc(50% - 8px);
-      left: calc(50% - 8px);
-      z-index: 1;
-    }
-  }
 }
 
+.dotWrap {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background-color: $backgroundGray;
+  border-radius: 50%;
+  top: -18px;
+  transition: 0.5s ease-in-out;
+  z-index: 3;
+}
 
-// .active::after {
-//   position: absolute;
-//   width: 15px;
-//   height: 15px;
-//   background-color: $gold;
-//   border-radius: 50%;
-//   top: -19px;
-//   left: 50%;
-//   margin-left: -15px;
-//   border: 10px solid $backgroundGray;
-//   transition: 0.3s ease-in-out;
-// }
+.dot {
+  width: 16px;
+  height: 16px;
+  background-color: $gold;
+  border-radius: 50%;
+  position: absolute;
+  top: calc(50% - 8px);
+  left: calc(50% - 8px);
+  z-index: 1;
+}
 
 h1, h2 {
   color: $gold;
