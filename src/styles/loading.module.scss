@@ -9,7 +9,7 @@
   height: 100%;
   z-index: 2;
   opacity: 1;
-  transition: 1.5s ease-out;
+  transition: 2.5s ease-out;
 }
 
 .loader {
@@ -87,8 +87,9 @@
 }
 .fade-exit {
   opacity: 1;
+  transition: opacity 1.5s;
 }
 .alert-exit-active {
   opacity: 0;
-  transition: opacity 900ms;
+  transition: opacity 1.5s;
 }

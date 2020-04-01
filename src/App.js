@@ -26,8 +26,10 @@ const App = (props) => {
       return selectedJob.jobLevel === item.jobLevel;
     });
 
-    setActiveIndex(index);
-    setActiveJobItem(clickedJobLevel);
+    if (activeJobItem && selectedPositionValue !== 'position' && selectedLocationValue !== 'location') {
+      setActiveIndex(index);
+      setActiveJobItem(clickedJobLevel);
+    }
   }
 
   const handlePositionChange = (e) => {
@@ -90,7 +92,7 @@ const App = (props) => {
                 <SVGS />
               </div>
             </div>
-            <form onSubmit={handleSubmit} className={styles.textCenter}>
+            <form onSubmit={handleSubmit} className={`${styles.textCenter} ${styles.contain}`}>
               <PositionSelect 
                 titles={titles}
                 controlFunction={handlePositionChange}
@@ -106,7 +108,7 @@ const App = (props) => {
             )
             }
             </form>
-            <div className={styles.jobContainer}>
+            <div className={`${styles.jobContainer} ${styles.contain}`}>
               <SalaryResults
                 activeJob={activeJobItem}
                 handleSubmitLoading={handleSubmitLoading}
@@ -117,6 +119,9 @@ const App = (props) => {
                 handleJobLevelSelect={handleJobLevelSelect}
                 sortedJobsArr={sortedJobs}
                 activeIndex={activeIndex}
+                posVal={selectedPositionValue}
+                locVal={selectedLocationValue}
+                activeJobItem={activeJobItem}
               />
             </div>
           </div>

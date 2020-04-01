@@ -6,7 +6,7 @@ import MoneyStack from '../icons/money-stack.png';
 const JobDetails = (props) => {
   const [dotPos, setDotPos] = useState(null);
   const [sliderLeftPos, setSliderLeftPos] = useState(null);
-  const { sortedJobsArr, activeIndex, handleJobLevelSelect } = props;
+  const { sortedJobsArr, activeIndex, handleJobLevelSelect, posVal, locVal, activeJobItem } = props;
   const dotRef = useRef();
   // even out the flex items
   let flexItemWidth;
@@ -46,11 +46,13 @@ const JobDetails = (props) => {
   }, []);
 
   const handleDotMove = (e) => {
-    if (e) {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const midPos = rect.left + (rect.width / 2);
-      setDotPos((midPos - sliderLeftPos) - 18);
-    } 
+    if (activeJobItem && posVal !== 'position' && locVal !== 'location') {
+      if (e) {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const midPos = rect.left + (rect.width / 2);
+        setDotPos((midPos - sliderLeftPos) - 18);
+      } 
+    }
   }
 
   const jobDetailItems = sortedJobsArr.map((jobItem, index) => (
