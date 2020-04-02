@@ -1,94 +1,95 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { Component } from 'react';
 import styles from '../styles/main.module.scss';
-import MoneyStack from '../icons/money-stack.png';
+// import MoneyStack from '../icons/money-stack.png';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-// render the job descriptions on the bottom
-const JobDetails = (props) => {
-  const [dotPos, setDotPos] = useState(null);
-  const [sliderLeftPos, setSliderLeftPos] = useState(null);
-  const { sortedJobsArr, activeIndex, handleJobLevelSelect, posVal, locVal, activeJobItem } = props;
-  const dotRef = useRef();
-  // even out the flex items
-  let flexItemWidth;
-  let itemWidthStyle;
-  let initialSliderLeftPos;
-  let midPos;
-
-
-  const setItemWidths = () => {
-    if (sortedJobsArr.length > 0) {
-      flexItemWidth = 100 / sortedJobsArr.length;
-    }
-
-    if (window.innerWidth >= 768) {
-      itemWidthStyle = {
-        flex: '0 0' + flexItemWidth + '%',
-        width: flexItemWidth + '%'
-      };
-    } else {
-      itemWidthStyle = {
-        flex: '0 0 auto'
-      };
-    };
+class JobDetails extends Component {
+  state = {
+    activeSlide: 0
   };
 
-  useEffect(() => {
-    setItemWidths();
-  }, [setItemWidths]);
+  render() {
+    const settings = {
+      dots: false,
+      infinite: true,
+      focusOnSelect: true,
+      speed: 150,
+      slidesToShow: 6,
+      slidesToScroll: 1,
+      afterChange: (current) => {
+        this.setState({
+          activeSlide: current,
+        }, () => {
+          this.props.handleJobLevelSelect(this.state.activeSlide);
+        });
+      },
+      responsive: [
+        {
+          breakpoint: 960,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+          }
+        },
+        {
+          breakpoint: 767,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    };
 
-  const sliderRef = useCallback(node => {
-    if (node !== null) {
-      const rect = node.getBoundingClientRect();
-      initialSliderLeftPos = rect.left;
-      setSliderLeftPos(rect.left);
-    }
-  }, []);
-
-  const initialJobLevelRef = useCallback((jobItem, slider) => {
-    if (jobItem !== null) {
-      const rect = jobItem.getBoundingClientRect();
-      midPos = rect.left + (rect.width / 2);
-      setDotPos((midPos - initialSliderLeftPos) - 18);
-    }
-  }, []);
-
-  const handleDotMove = (e) => {
-    if (activeJobItem && posVal !== 'position' && locVal !== 'location') {
-      if (e) {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const midPos = rect.left + (rect.width / 2);
-        setDotPos((midPos - sliderLeftPos) - 18);
-      } 
-    }
-  }
-
-  const jobDetailItems = sortedJobsArr.map((jobItem, index) => (
-      <li
-        onClick={(e) => { handleJobLevelSelect(jobItem, index); handleDotMove(e, dotPos); }}
+    const jobDetailItems = this.props.sortedJobsArr.map((jobItem, index) => (
+      <div
         key={jobItem.jobLevel}
-        className={`${activeIndex === index ? `${styles.active} ${styles.jobItem}` : `${styles.jobItem}`}`}
-        style={itemWidthStyle}
-        ref={index === 0 ? initialJobLevelRef : null}
+        className={`${this.props.activeIndex === index ? `${styles.active} ${styles.jobItem}` : `${styles.jobItem}`}`}
       >
         <h3>{jobItem.jobLevel}</h3>
         <p>{jobItem.jobDescription}</p>
-      </li>
+      </div>
     ),
-  );
+    );
 
-  return (
-    <div>
-      <div className={styles.slider} ref={sliderRef}>
-        <div className={styles.dotWrap} ref={dotRef} style={{ left: dotPos }}>
+    return (
+      <div>
+        <div className={styles.slider}>
+          <input
+            onChange={e => {
+              let num = e.target.value;
+              if (num % 1 !== 0) {
+                num = Math.floor(num);
+              }
+              this.slider.slickGoTo(num);
+            }}
+            value={this.state.activeSlide + 0.5}
+            type="range"
+            min={0}
+            max={6}
+            step={0.5}
+            className={styles.inputSlider}
+          />
+          {/* <div className={styles.dotWrap} value={activeSlide}>
           <img src={MoneyStack} alt="money" className={styles.moneyStackImage} />
           <span className={styles.dot}></span>
+        </div> */}
         </div>
+        <Slider ref={slider => (this.slider = slider)} {...settings}>
+          {jobDetailItems}
+        </Slider>
       </div>
-      <ul className={styles.jobDetailItems}>
-        {jobDetailItems}
-      </ul>
-    </div>
-  );
+    );
+  };
 };
 
 export default JobDetails;

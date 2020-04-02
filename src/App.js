@@ -21,14 +21,16 @@ const App = (props) => {
   const [descriptions, setDescriptions] = useState([]);
   const [handleSubmitLoading, setHandleSubmitLoading] = useState(false);
 
-  const handleJobLevelSelect = (item, index) => {
-    const clickedJobLevel = descriptions.find((selectedJob) => {
-      return selectedJob.jobLevel === item.jobLevel;
+  const handleJobLevelSelect = (activeIndex) => {
+    const selectedJobItem = descriptions.filter((jobItem, index) => {
+      if (index === activeIndex) {
+        return jobItem;
+      };
     });
 
     if (activeJobItem && selectedPositionValue !== 'position' && selectedLocationValue !== 'location') {
-      setActiveIndex(index);
-      setActiveJobItem(clickedJobLevel);
+      setActiveIndex(activeIndex);
+      setActiveJobItem(selectedJobItem[0]);
     }
   }
 
