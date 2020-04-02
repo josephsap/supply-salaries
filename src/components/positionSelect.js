@@ -13,8 +13,8 @@ const PositionSelect = (props) => {
 
   return (
     <Fragment>
-      <p className={styles.inlineBlock}>I'm curious what a</p>
-      <div className={styles.selectWrapper}>
+      <p className={`${styles.inlineBlock} ${styles.dropdownCopy}`}>I'm curious what a</p>
+      <div className={`${styles.selectWrapper} ${styles.posWrapper}`}>
         <select onChange={controlFunction} value={selectedPositionValue}>
           <option value="position" key="pos1">Choose a job</option>
           { makePositionSelectOptions }

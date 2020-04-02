@@ -7,8 +7,8 @@ const LocationSelect = (props) => {
 
   return (
     <Fragment>
-      <p className={styles.inlineBlock}>Should make in</p>
-      <div className={styles.selectWrapper}>
+      <p className={`${styles.inlineBlock} ${styles.dropdownCopy}`}>Should make in</p>
+      <div className={`${styles.selectWrapper} ${styles.locWrapper}`}>
         <select onChange={controlFunction} value={selectedLocationValue}>
           <option value="location" defaultValue="location" key="location">
             location

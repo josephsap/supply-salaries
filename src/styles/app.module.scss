@@ -39,6 +39,17 @@
     top: 50%;
     transform: rotate(90deg) translateX(-50%);
   }
+  select {
+    @media (max-width: 767px) {
+      width: 215px;
+    }
+  }
+}
+
+.locWrapper, .posWrapper {
+  @media (max-width: 767px) {
+    margin: 0 0 22px;
+  }
 }
 
 // submit button styles
@@ -96,6 +107,12 @@
   @include btn-border-drawing($darkGray, $gold, 2px, bottom, right);
 }
 
+.dropdownCopy {
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+}
+
 .submitBtn {
   border: none;
   background-color: white;
@@ -106,6 +123,11 @@
   cursor: pointer;
   -webkit-appearance: none;
   @extend .draw-border;
+  @media (max-width: 767px) {
+    display: block;
+    margin: 20px auto 0;
+    width: 215px;
+  } 
 }
 
 .disabledButton {

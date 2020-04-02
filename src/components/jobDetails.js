@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import styles from '../styles/main.module.scss';
 import MoneyStack from '../icons/money-stack.png';
 
@@ -14,20 +14,27 @@ const JobDetails = (props) => {
   let initialSliderLeftPos;
   let midPos;
 
-  if(sortedJobsArr.length > 0) {
-    flexItemWidth = 100 / sortedJobsArr.length;
-  }
 
-  if(window.innerWidth >= 768) {
-    itemWidthStyle = {
-      flex: '0 0' + flexItemWidth + '%',
-      width: flexItemWidth + '%'
-    };
-  } else {
-    itemWidthStyle = {
-      flex: '0 0 auto'
+  const setItemWidths = () => {
+    if (sortedJobsArr.length > 0) {
+      flexItemWidth = 100 / sortedJobsArr.length;
+    }
+
+    if (window.innerWidth >= 768) {
+      itemWidthStyle = {
+        flex: '0 0' + flexItemWidth + '%',
+        width: flexItemWidth + '%'
+      };
+    } else {
+      itemWidthStyle = {
+        flex: '0 0 auto'
+      };
     };
   };
+
+  useEffect(() => {
+    setItemWidths();
+  }, [setItemWidths]);
 
   const sliderRef = useCallback(node => {
     if (node !== null) {
