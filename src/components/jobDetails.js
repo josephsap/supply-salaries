@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import styles from '../styles/main.module.scss';
-// import MoneyStack from '../icons/money-stack.png';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import InputRange from 'react-input-range';
+import 'react-input-range/lib/css/index.css';
+import '../styles/rangeOverrides.css';
 
 class JobDetails extends Component {
   state = {
-    activeSlide: 0
+    activeSlide: 0,
+    value: 0.5
   };
 
   render() {
@@ -21,6 +24,7 @@ class JobDetails extends Component {
       afterChange: (current) => {
         this.setState({
           activeSlide: current,
+          value: current + 0.5
         }, () => {
           this.props.handleJobLevelSelect(this.state.activeSlide);
         });
@@ -64,25 +68,35 @@ class JobDetails extends Component {
     return (
       <div>
         <div className={styles.slider}>
-          <input
-            onChange={e => {
-              let num = e.target.value;
-              if (num % 1 !== 0) {
-                num = Math.floor(num);
-              }
-              this.slider.slickGoTo(num);
-            }}
-            value={this.state.activeSlide + 0.5}
-            type="range"
-            min={0}
-            max={6}
+          <InputRange
+            draggableTrack={true}
+            maxValue={6}
+            minValue={0}
             step={0.5}
-            className={styles.inputSlider}
+            value={this.state.value}
+            classNames={{
+              inputRange: 'inputRange',
+              labelContainer: 'labelContainer',
+              maxLabel: 'maxLabel',
+              minLabel: 'minLabel',
+              slider: 'slider',
+              sliderContainer: 'sliderContainer',
+              track: 'trak',
+              valueLabel: 'valueLabel'
+            }}
+            onChange={(value) => {
+              let theValue;
+              if (value % 1 === 0) {
+                theValue = value + 0.5;
+              } else {
+                theValue = value;
+              }
+              this.setState({
+                value: theValue,
+                activeSlide: theValue - 0.5
+              });
+            }}
           />
-          {/* <div className={styles.dotWrap} value={activeSlide}>
-          <img src={MoneyStack} alt="money" className={styles.moneyStackImage} />
-          <span className={styles.dot}></span>
-        </div> */}
         </div>
         <Slider ref={slider => (this.slider = slider)} {...settings}>
           {jobDetailItems}

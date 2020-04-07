@@ -1,0 +1,48 @@
+.minLabel, .maxLabel, .valueLabel {
+  display: none;
+}
+
+.trak {
+  background-color: #333333;
+  height: 2px;
+  transition: 0.3s ease;
+}
+
+.slick-slide > div {
+  padding: 0 7px;
+}
+
+.slick-slide {
+  cursor: pointer;
+}
+
+.slider {
+  width: 21px;
+  height: 21px;
+  background-color:#c7bda4;
+  position: absolute;
+  top: 0;
+  margin-top: -50%;
+  margin-left: -50%;
+  transition: 0.3s ease;
+  border-radius: 50%;
+  border: 10px solid#f5f6f6;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.slider:after {
+  content: '';
+  background: url('../icons/money-stack.png');
+  position: absolute;
+  top: -40px;
+  width: 40px;
+  left: -50%;
+  height: 40px;
+  background-size: cover;
+  z-index: 2;
+}
+
+.inputRange, .sliderContainer {
+  transition: 0.3s ease;
+}
