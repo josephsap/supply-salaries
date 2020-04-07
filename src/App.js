@@ -27,11 +27,8 @@ const App = (props) => {
         return jobItem;
       };
     });
-
-    if (activeJobItem && selectedPositionValue !== 'position' && selectedLocationValue !== 'location') {
-      setActiveIndex(activeIndex);
-      setActiveJobItem(selectedJobItem[0]);
-    }
+    setActiveIndex(activeIndex);
+    setActiveJobItem(selectedJobItem[0]);
   }
 
   const handlePositionChange = (e) => {

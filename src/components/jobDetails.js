@@ -16,18 +16,23 @@ class JobDetails extends Component {
   render() {
     const settings = {
       dots: false,
-      infinite: true,
       focusOnSelect: true,
       speed: 150,
       slidesToShow: 6,
       slidesToScroll: 1,
-      afterChange: (current) => {
+      beforeChange: (current, next) => {
         this.setState({
-          activeSlide: current,
-          value: current + 0.5
+          value: next + 0.5,
+          activeSlide: next
         }, () => {
           this.props.handleJobLevelSelect(this.state.activeSlide);
         });
+        if (next < 0) {
+          this.setState({
+            activeSlide: 0,
+            value: 0.5
+          });
+        }
       },
       responsive: [
         {
@@ -54,10 +59,10 @@ class JobDetails extends Component {
       ]
     };
 
-    const jobDetailItems = this.props.sortedJobsArr.map((jobItem, index) => (
+    const jobDetailItems = this.props.sortedJobsArr.map(jobItem => (
       <div
         key={jobItem.jobLevel}
-        className={`${this.props.activeIndex === index ? `${styles.active} ${styles.jobItem}` : `${styles.jobItem}`}`}
+        className={styles.jobItem}
       >
         <h3>{jobItem.jobLevel}</h3>
         <p>{jobItem.jobDescription}</p>
@@ -91,9 +96,12 @@ class JobDetails extends Component {
               } else {
                 theValue = value;
               }
+              this.slider.slickGoTo(theValue);
               this.setState({
                 value: theValue,
                 activeSlide: theValue - 0.5
+              }, () => {
+                this.props.handleJobLevelSelect(this.state.activeSlide);
               });
             }}
           />
