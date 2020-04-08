@@ -10,16 +10,18 @@
 }
 
 .resultsContainer {
-  display: flex;
+  // display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  align-items: flex-start;
+  // align-items: center;
+  // justify-content: center;
   opacity: 0;
 }
 
 .salaryArea {
+  display: flex;
   margin: 60px 0 95px;
+  align-items: center;
+  justify-content: center;
   @media (min-width: 768px) {
     height: 160px;
     margin: 50px 0;
