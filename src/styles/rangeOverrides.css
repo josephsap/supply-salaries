@@ -47,3 +47,57 @@
 .inputRange, .sliderContainer {
   transition: 0.3s ease;
 }
+
+.inputRange {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .inputRange {
+    display: block;
+  }
+}
+
+.modifiedNextArrow {
+  border: 3px solid aqua;
+}
+
+.slick-next, .slick-prev {
+  width: 16px;
+  height: 16px;
+  border-top: 2px solid #333333;
+  border-right: 2px solid #333333;
+  transform: rotate(45deg);
+  top: -80px;
+  left: 50%;
+}
+.slick-next:before, .slick-prev:before {
+  display: none
+}
+
+.slick-disabled {
+  opacity: 0.25;
+}
+
+@media (max-width: 767px) {
+  .slick-current {
+    background-color: #dedede;
+  }
+}
+
+.slick-prev {
+  border-bottom: 2px solid #333333;
+  border-left: 2px solid #333333;
+  border-top: none;
+  border-right: none;
+  right: auto;
+  top: -80px;
+  left: 50%;
+  margin-left: -55px;
+}
+
+.slick-next {
+  left: auto;
+  right: 50%;
+  margin-right: -55px;
+}

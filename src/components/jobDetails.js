@@ -4,6 +4,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import InputRange from 'react-input-range';
+import NextArrow from './nextArrow';
+import PrevArrow from './prevArrow';
 import 'react-input-range/lib/css/index.css';
 import '../styles/rangeOverrides.css';
 
@@ -20,6 +22,8 @@ class JobDetails extends Component {
       speed: 150,
       slidesToShow: 6,
       slidesToScroll: 1,
+      nextArrow: <NextArrow />,
+      prevArrow: <PrevArrow />,
       beforeChange: (current, next) => {
         this.setState({
           value: next + 0.5,
@@ -47,13 +51,19 @@ class JobDetails extends Component {
           settings: {
             slidesToShow: 2,
             slidesToScroll: 1,
+            swipeToSlide: true,
+            arrows: true,
+            infinite: false
           }
         },
         {
           breakpoint: 480,
           settings: {
             slidesToShow: 1,
-            slidesToScroll: 1
+            slidesToScroll: 1,
+            swipeToSlide: true,
+            arrows: true,
+            infinite: false
           }
         }
       ]
@@ -72,6 +82,7 @@ class JobDetails extends Component {
 
     return (
       <div>
+        <div className={styles.mobileSliderIndicator}></div>
         <div className={styles.slider}>
           <InputRange
             draggableTrack={true}

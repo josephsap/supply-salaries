@@ -8,6 +8,31 @@ body {
   background-color: $backgroundGray;
 }
 
+.mobileSliderIndicator {
+  display: block;
+  width: 18px;
+  height: 18px;
+  background-color:#c7bda4;
+  border-radius: 50%;
+  margin: 0 auto 30px;
+  position: relative;
+  &:after {
+    content: '';
+    background: url('../icons/money-stack.png');
+    position: absolute;
+    top: -47px;
+    width: 45px;
+    left: -50%;
+    height: 45px;
+    margin-left: -3px;
+    background-size: cover;
+    z-index: 2;
+  }
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
 :global(select) {
   border: none;
   -webkit-appearance: none;
@@ -35,8 +60,12 @@ body {
 }
 
 .slider {
-  position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid;
+  @media(min-width: 768px) {
+    position: relative;
+    margin-bottom: 30px;
+  }
 }
 
 h1, h2 {
