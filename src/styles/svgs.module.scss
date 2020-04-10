@@ -8,6 +8,22 @@
   margin: 0;
 }
 
+.modalButton {
+  cursor: pointer;
+  background: none;
+  outline: none;
+  border: none;
+  text-decoration: underline;
+  text-transform: uppercase;
+  margin-top: 15px;
+}
+
+.modalStyles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 // .line1, .line2, .line3, .line4, .line5, .circle1, .circle2, .triangle1, .tri
 .svgWrapper {
   svg {

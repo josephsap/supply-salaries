@@ -9,6 +9,7 @@ import JobDetails from './components/jobDetails';
 import SalaryResults from './components/salaryResults';
 import withDataFetching from './components/withDataFetching';
 import LoadingScreen from './components/loadingScreen';
+import Footer from './components/Footer';
 
 
 const App = (props) => {
@@ -85,45 +86,48 @@ const App = (props) => {
     <>
       {loading
         ? <LoadingScreen loading={props.loading} />
-        : (<div className={styles.app}>
-            <div className="topBar">
-              <div className="container">
-                <SVGS />
+        : (<>
+            <div className={styles.app}>
+                <div className="topBar">
+                  <div className="container">
+                    <SVGS />
+                  </div>
+                </div>
+                <form onSubmit={handleSubmit} className={`${styles.textCenter} ${styles.contain}`}>
+                  <PositionSelect 
+                    titles={titles}
+                    controlFunction={handlePositionChange}
+                  />
+                  <LocationSelect
+                    locations={locations}
+                    controlFunction={handleLocationChange}
+                  />
+                {selectedPositionValue !== 'position' && selectedLocationValue !== 'location' ? (
+                  <button type="submit" value="submit" className={styles.submitBtn}><span>Submit</span></button>
+                ) : (
+                  <button type="submit" disabled value="submit" className={`${styles.submitBtn} ${styles.disabledButton}`}><span>Submit</span></button>
+                )
+                }
+                </form>
+                <div className={`${styles.jobContainer} ${styles.contain}`}>
+                  <SalaryResults
+                    activeJob={activeJobItem}
+                    handleSubmitLoading={handleSubmitLoading}
+                    posVal={selectedPositionValue}
+                    locVal={selectedLocationValue}
+                  />
+                  <JobDetails
+                    handleJobLevelSelect={handleJobLevelSelect}
+                    sortedJobsArr={sortedJobs}
+                    activeIndex={activeIndex}
+                    posVal={selectedPositionValue}
+                    locVal={selectedLocationValue}
+                    activeJobItem={activeJobItem}
+                  />
+                </div>
               </div>
-            </div>
-            <form onSubmit={handleSubmit} className={`${styles.textCenter} ${styles.contain}`}>
-              <PositionSelect 
-                titles={titles}
-                controlFunction={handlePositionChange}
-              />
-              <LocationSelect
-                locations={locations}
-                controlFunction={handleLocationChange}
-              />
-            {selectedPositionValue !== 'position' && selectedLocationValue !== 'location' ? (
-              <button type="submit" value="submit" className={styles.submitBtn}><span>Submit</span></button>
-            ) : (
-              <button type="submit" disabled value="submit" className={`${styles.submitBtn} ${styles.disabledButton}`}><span>Submit</span></button>
-            )
-            }
-            </form>
-            <div className={`${styles.jobContainer} ${styles.contain}`}>
-              <SalaryResults
-                activeJob={activeJobItem}
-                handleSubmitLoading={handleSubmitLoading}
-                posVal={selectedPositionValue}
-                locVal={selectedLocationValue}
-              />
-              <JobDetails
-                handleJobLevelSelect={handleJobLevelSelect}
-                sortedJobsArr={sortedJobs}
-                activeIndex={activeIndex}
-                posVal={selectedPositionValue}
-                locVal={selectedLocationValue}
-                activeJobItem={activeJobItem}
-              />
-            </div>
-          </div>
+              <Footer />
+            </>
         )
       }
     </>
