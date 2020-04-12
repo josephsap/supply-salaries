@@ -15,10 +15,10 @@ const Footer = () => {
           <h4 className={styles.titleLines}>Follow Us</h4>
           <ul className={styles.social}>
             <li>
-              <a href="https://www.facebook.com/TheSupply.Online" target="_blank" rel="noopener">facebook</a>
+              <a href="https://www.facebook.com/TheSupply.Online" target="_blank" rel="noopener noreferrer">facebook</a>
             </li>
             <li>
-              <a href="https://twitter.com/thesupply_feed" target="_blank" rel="noopener">twitter</a>
+              <a href="https://twitter.com/thesupply_feed" target="_blank" rel="noopener noreferrer">twitter</a>
             </li>
           </ul>
         </Grid>

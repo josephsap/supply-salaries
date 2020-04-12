@@ -24,6 +24,29 @@
   justify-content: center;
 }
 
+.modalTop {
+  background: black;
+  display: flex;
+  padding: 0 20px;
+  p {
+    color: white;
+    font-size: 20px;
+    flex: 1 0 80%;
+  }
+}
+
+.modalCloseIcon {
+  align-self: center;
+  color: white;
+  cursor: pointer;
+  flex: 1 0 0;
+}
+
+.modalInner {
+  padding: 5px 20px 20px 20px;
+}
+
+
 // .line1, .line2, .line3, .line4, .line5, .circle1, .circle2, .triangle1, .tri
 .svgWrapper {
   svg {
@@ -114,7 +137,7 @@
     z-index: 0;
     height: 30px;
     &.mobile-show {
-      @media (max-width: 768px) {
+      @media (max-width: 769px) {
         left: 10%;
       }
     }

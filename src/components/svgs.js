@@ -3,6 +3,7 @@ import { useTrail, useSpring, animated } from 'react-spring';
 import styles from '../styles/svgs.module.scss';
 import '../styles/svgs.scss';
 import Modal from '@material-ui/core/Modal';
+import CloseIcon from '@material-ui/icons/Close';
 import Backdrop from '@material-ui/core/Backdrop';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -99,10 +100,15 @@ const SVGConfig = [
 const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    maxWidth: '555px',
+    width: '90%',
+    margin: '0 auto',
+    outline: 'none'
   },
+  root: {
+    outline: 'none'
+  }
 }));
 
 const Fade = forwardRef(function Fade(props, ref) {
@@ -175,10 +181,16 @@ const SVGS = ({ loading }) => {
           timeout: 500,
         }}
       >
-        <Fade in={open}>
+        <Fade in={open} className={classes.root}>
           <div className={classes.paper}>
-            <h2 id="spring-modal-title">Shaz what should this say?</h2>
-            <p id="spring-modal-description">And what should it look like?</p>
+            <div className={styles.modalTop}>
+              <p>More Info</p>
+              <CloseIcon onClick={handleClose} className={styles.modalCloseIcon} />
+            </div>
+            <div className={styles.modalInner}>
+              <h2 id="spring-modal-title">About stuff</h2>
+              <p id="spring-modal-description">Hey 👋 This is just a quick little one-page site that houses all the cool sites/apps/platforms who have taken the time to curate cool shit within certain categories. The internet is a mess, it needs some curation...Send over a note if you have some good links to add shaz@thesupply.com</p>
+            </div>
           </div>
         </Fade>
       </Modal>

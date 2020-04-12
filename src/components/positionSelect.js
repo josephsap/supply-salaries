@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styles from '../styles/app.module.scss';
 
 
 const PositionSelect = (props) => {
-  const { titles, controlFunction, selectedPositionValue } = props;
+  const { titles, controlFunction, selectedPositionValue, isEarlyClick } = props;
 
   const makePositionSelectOptions = titles.map((title) => {
     return (
@@ -12,19 +12,16 @@ const PositionSelect = (props) => {
   });
 
   return (
-    <Fragment>
-      <p className={`${styles.inlineBlock} ${styles.dropdownCopy}`}>I'm curious what a</p>
-      <div className={`${styles.selectWrapper} ${styles.posWrapper}`}>
-        <select onChange={controlFunction} value={selectedPositionValue}>
-          <option value="position" key="pos1">Choose a job</option>
-          { makePositionSelectOptions }
-        </select>
-      </div>
-    </Fragment>
+      <>
+        <p className={`${styles.inlineBlock} ${styles.dropdownCopy}`}>I'm curious what a</p>
+        <div className={isEarlyClick ? `${styles.pulsate} ${styles.selectWrapper} ${styles.posWrapper}` : `${styles.selectWrapper} ${styles.posWrapper}`}>
+          <select onChange={controlFunction} value={selectedPositionValue}>
+            <option value="position" key="pos1">Choose a job</option>
+            {makePositionSelectOptions}
+          </select>
+        </div>
+      </>
   );
 };
 
 export default PositionSelect;
-
-
-//<select value={this.state.value} onChange={this.handleChange}>

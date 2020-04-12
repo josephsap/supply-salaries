@@ -21,6 +21,7 @@ const App = (props) => {
   const [activeJobItem, setActiveJobItem] = useState(null);
   const [descriptions, setDescriptions] = useState([]);
   const [handleSubmitLoading, setHandleSubmitLoading] = useState(false);
+  const [isEarlyClick, setIsEarlyClick] = useState(false);
 
   const handleJobLevelSelect = (activeIndex) => {
     const selectedJobItem = descriptions.filter((jobItem, index) => {
@@ -48,6 +49,11 @@ const App = (props) => {
     }
   };
 
+  const earlyClick = (clickStatus) => {
+    console.log('early click', clickStatus);
+    setIsEarlyClick(clickStatus);
+  };
+
   const sortJobsLowToHigh = () => {
     const sortedBySalaryLow = descriptions.sort((a, b) => parseFloat(a.salaryLow) - parseFloat(b.salaryLow));
     if (!handleSubmitLoading) {
@@ -58,6 +64,7 @@ const App = (props) => {
    const handleSubmit = (e) => {
     e.preventDefault();
     setHandleSubmitLoading(true);
+    setIsEarlyClick(false);
     axios.get(`https://events.thesupply.com/api/salaries/${selectedPositionValue}/${selectedLocationValue}`)
     .then(response => {
       setDescriptions(response.data);
@@ -97,10 +104,12 @@ const App = (props) => {
                   <PositionSelect 
                     titles={titles}
                     controlFunction={handlePositionChange}
+                    isEarlyClick={isEarlyClick}
                   />
                   <LocationSelect
                     locations={locations}
                     controlFunction={handleLocationChange}
+                    isEarlyClick={isEarlyClick}
                   />
                 {selectedPositionValue !== 'position' && selectedLocationValue !== 'location' ? (
                   <button type="submit" value="submit" className={styles.submitBtn}><span>Submit</span></button>
@@ -115,6 +124,8 @@ const App = (props) => {
                     handleSubmitLoading={handleSubmitLoading}
                     posVal={selectedPositionValue}
                     locVal={selectedLocationValue}
+                    isEarlyClick={isEarlyClick}
+
                   />
                   <JobDetails
                     handleJobLevelSelect={handleJobLevelSelect}
@@ -123,6 +134,7 @@ const App = (props) => {
                     posVal={selectedPositionValue}
                     locVal={selectedLocationValue}
                     activeJobItem={activeJobItem}
+                    earlyClick={earlyClick}
                   />
                 </div>
               </div>

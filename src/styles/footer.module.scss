@@ -10,13 +10,24 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  a {
+    @media (max-width: 769px) {
+      margin: 0 auto;
+    }
+  }
   img {
-    margin-left: 50px;
+    margin-top: 20px;
+    @media (min-width: 769px) {
+      margin-left: 50px;
+      margin-top: 0;
+    }
   }
 }
 
 .footerLogoContainer, .footerOneThird {
-  border-right: 1px solid;
+  @media (min-width: 769px) {
+    border-right: 1px solid;
+  }
 }
 
 .titleLines {

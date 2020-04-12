@@ -52,7 +52,7 @@
   display: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .inputRange {
     display: block;
   }
@@ -79,7 +79,7 @@
   opacity: 0.25;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 769px) {
   .slick-current {
     background-color: #dedede;
   }

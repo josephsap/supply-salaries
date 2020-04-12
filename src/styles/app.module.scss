@@ -40,14 +40,14 @@
     transform: rotate(90deg) translateX(-50%);
   }
   select {
-    @media (max-width: 767px) {
+    @media (max-width: 769px) {
       width: 215px;
     }
   }
 }
 
 .locWrapper, .posWrapper {
-  @media (max-width: 767px) {
+  @media (max-width: 769px) {
     margin: 0 0 22px;
   }
 }
@@ -108,7 +108,7 @@
 }
 
 .dropdownCopy {
-  @media (max-width: 767px) {
+  @media (max-width: 769px) {
     width: 100%;
   }
 }
@@ -123,7 +123,7 @@
   cursor: pointer;
   -webkit-appearance: none;
   @extend .draw-border;
-  @media (max-width: 767px) {
+  @media (max-width: 769px) {
     display: block;
     margin: 20px auto 0;
     width: 215px;
@@ -134,4 +134,38 @@
   box-shadow: inset 0 0 0 2px #d8d8d8;
   color: #d8d8d8;
   pointer-events: none;
+}
+
+.pulsate {
+	-webkit-animation: pulsate 0.3s ease-in-out 0.3s 3 both;
+	        animation: pulsate 0.3s ease-in-out 0.3s 3 both;
+}
+
+@-webkit-keyframes pulsate {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes pulsate {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
 }

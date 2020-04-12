@@ -16,6 +16,7 @@ class JobDetails extends Component {
   };
 
   render() {
+    const { posVal, locVal } = this.props;
     const settings = {
       dots: false,
       focusOnSelect: true,
@@ -25,6 +26,9 @@ class JobDetails extends Component {
       nextArrow: <NextArrow />,
       prevArrow: <PrevArrow />,
       beforeChange: (current, next) => {
+        if (posVal === 'position' || locVal === 'location') {
+          return false;
+        }
         this.setState({
           value: next + 0.5,
           activeSlide: next
@@ -38,26 +42,14 @@ class JobDetails extends Component {
           });
         }
       },
+      afterChange: () => {
+        if (posVal === 'position' || locVal === 'location') {
+          this.props.earlyClick(true);
+        }
+      },
       responsive: [
         {
-          breakpoint: 960,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-          }
-        },
-        {
-          breakpoint: 767,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            swipeToSlide: true,
-            arrows: true,
-            infinite: false
-          }
-        },
-        {
-          breakpoint: 480,
+          breakpoint: 769,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -102,6 +94,10 @@ class JobDetails extends Component {
             }}
             onChange={(value) => {
               let theValue;
+              if (posVal === 'position' || locVal === 'location') {
+                this.props.earlyClick(true);
+                return false;
+              }
               if (value % 1 === 0) {
                 theValue = value + 0.5;
               } else {
