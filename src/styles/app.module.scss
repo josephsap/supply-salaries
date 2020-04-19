@@ -23,27 +23,8 @@
 }
 
 .selectWrapper {
-  position: relative;
   display: inline-block;
   margin: 0 15px;
-  &::after {
-    pointer-events: none;
-    background-image: url('../icons/icon-select-down.svg');
-    background-repeat: no-repeat;
-    background-size: 14px;
-    content: '';
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    right: 8px;
-    top: 50%;
-    transform: rotate(90deg) translateX(-50%);
-  }
-  select {
-    @media (max-width: 769px) {
-      width: 215px;
-    }
-  }
 }
 
 .locWrapper, .posWrapper {

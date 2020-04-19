@@ -105,11 +105,13 @@ const App = (props) => {
                     titles={titles}
                     controlFunction={handlePositionChange}
                     isEarlyClick={isEarlyClick}
+                    selectedPositionValue={selectedPositionValue}
                   />
                   <LocationSelect
                     locations={locations}
                     controlFunction={handleLocationChange}
                     isEarlyClick={isEarlyClick}
+                    selectedLocationValue={selectedLocationValue}
                   />
                 {selectedPositionValue !== 'position' && selectedLocationValue !== 'location' ? (
                   <button type="submit" value="submit" className={styles.submitBtn}><span>Submit</span></button>
