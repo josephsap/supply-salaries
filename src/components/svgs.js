@@ -157,7 +157,7 @@ const SVGS = ({ loading }) => {
       <div className={styles.textCenter}>
         <h1>Industry Salaries</h1>
         <h4 className={styles.subhead}>Thoughts on salary ranges we see in our realm of talent</h4>
-        <button type="button" onClick={handleOpen} className={styles.modalButton}>About</button>
+        <button type="button" onClick={handleOpen} className={styles.modalButton}>What is this?</button>
       </div>
       {trail.map(({ height, ...rest }, index) => (
         <animated.span
@@ -184,12 +184,11 @@ const SVGS = ({ loading }) => {
         <Fade in={open} className={classes.root}>
           <div className={classes.paper}>
             <div className={styles.modalTop}>
-              <p>More Info</p>
+              <p>What is this?</p>
               <CloseIcon onClick={handleClose} className={styles.modalCloseIcon} />
             </div>
             <div className={styles.modalInner}>
-              <h2 id="spring-modal-title">About stuff</h2>
-              <p id="spring-modal-description">Hey 👋 This is just a quick little one-page site that houses all the cool sites/apps/platforms who have taken the time to curate cool shit within certain categories. The internet is a mess, it needs some curation...Send over a note if you have some good links to add shaz@thesupply.com</p>
+              <p id="spring-modal-description">Hey, thanks for stopping by. This is just a quick little tool that gives some rough salary ranges in the industry/world we are familiar with. We get asked about this all the time, figured we’d put it in one simple place. There are so many variables to salaries as you know, so just a guideline. We will be adjusting this as time goes on, working on adding some new filters (small shop vs massive company, freelance rate, etc), feel free to send a note with ideas and thoughts. <a href="mailto:hi@thesupply.com?subject=An email from The Supply Salaries" target="_blank" rel="noopener noreferrer">hi@thesupply.com</a> - Thanks</p>
             </div>
           </div>
         </Fade>
