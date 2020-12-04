@@ -10,12 +10,12 @@ const SalaryResults = (props) => {
       <Fade when={!handleSubmitLoading} duration={1500} wait={100}>
         <div className={`${styles.resultsContainer} ${styles.salaryArea}`}>
           <div className={styles.numberContainer}>
-            <h3 className={`${styles.salaryResultText} ${styles.firstNumber}`}>${activeJob.salaryLow.slice(0, -3)}</h3>
+            <h3 className={`${styles.salaryResultText} ${styles.firstNumber}`}>${activeJob.salaryLow}</h3>
             <p className={styles.rangeDesc}>{activeJob.salaryRangeLowDesc}</p>
           </div>
           <p className={`${styles.salaryResultText} ${styles.salaryDash}`}>&ndash;</p>
           <div className={styles.numberContainer}>
-            <h3 className={styles.salaryResultText}>${activeJob.salaryHigh.slice(0, -3)}</h3>
+            <h3 className={styles.salaryResultText}>${activeJob.salaryHigh}</h3>
             <p className={styles.rangeDesc}>{activeJob.salaryRangeHighDesc}</p>
           </div>
         </div>

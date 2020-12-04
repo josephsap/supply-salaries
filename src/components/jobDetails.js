@@ -16,6 +16,7 @@ class JobDetails extends Component {
   };
 
   render() {
+    console.log(this.props.sortedJobsArr, '))__________')
     const { posVal, locVal } = this.props;
     const settings = {
       dots: false,

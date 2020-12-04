@@ -4,10 +4,9 @@ import styles from '../styles/app.module.scss';
 
 const PositionSelect = (props) => {
   const { titles, controlFunction, selectedPositionValue, isEarlyClick } = props;
-
   const makePositionSelectOptions = titles.map((title) => {
     return (
-      <option key={title.id} value={title.slug}>{title.jobTitle}</option>
+      <option key={title.id} value={title.slug}>{title.title}</option>
     );
   });
 

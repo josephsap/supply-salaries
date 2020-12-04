@@ -13,30 +13,43 @@ const withDataFetching = (WrappedComponent) => {
       };
     }
 
-    componentDidMount() {
-      function getTitles() {
-        return axios.get('https://events.thesupply.com/api/salaries/titles');
-      }
+    async componentDidMount() {
+      const locsArr = [];
+      const titlesArr = [];
+      const descriptionsArr = [];
+      const results = await axios.get('https://5fc996973c1c220016440d3f.mockapi.io/salaries');
+      results.data.map(item => {
+        titlesArr.push({
+          id: item.id,
+          title: item.jobTitle,
+          slug: item.slug,
+        });
+        locsArr.push({
+          id: item.id,
+          location: item.location,
+          locationSlug: item.locationSlug,
+        });
+        descriptionsArr.push({
+          id: item.id,
+          slug: item.slug,
+          jobTitle: item.jobTitle,
+          jobLevel: item.jobLevel,
+          location: item.location,
+          salaryLow: item.salaryLow,
+          salaryHigh: item.salaryHigh,
+          salaryRangeLowDesc: item.salaryRangeLowDesc,
+          salaryRangeHighDesc: item.salaryRangeHighDesc,
+          locationSlug: item.locationSlug,
+          jobDescription: item.jobDescription
+        });
+      });
 
-      function getLocations() {
-        return axios.get('https://events.thesupply.com/api/salaries/locations');
-      }
-
-      function getDefaultDescriptions() {
-        return axios.get('https://events.thesupply.com/api/salaries/digital-producer');
-      }
-
-      let _this = this;
-      axios.all([getTitles(), getLocations(), getDefaultDescriptions()])
-        .then(axios.spread(function (titles, locations, descriptions) {
-          _this.setState({
-            titles: titles.data,
-            locations: locations.data,
-            descriptions: descriptions.data,
-            loading: false
-          })
-        })
-      )
+      return this.setState({
+        titles: titlesArr,
+        locations: locsArr,
+        descriptions: descriptionsArr,
+        loading: false
+      });
     }
 
     render() {

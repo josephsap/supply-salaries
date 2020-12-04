@@ -55,6 +55,7 @@ const App = (props) => {
   };
 
   const sortJobsLowToHigh = () => {
+    console.log(descriptions, 'desccc')
     const sortedBySalaryLow = descriptions.sort((a, b) => parseFloat(a.salaryLow) - parseFloat(b.salaryLow));
     if (!handleSubmitLoading) {
       setSortedJobs(sortedBySalaryLow);
@@ -65,7 +66,7 @@ const App = (props) => {
     e.preventDefault();
     setHandleSubmitLoading(true);
     setIsEarlyClick(false);
-    axios.get(`https://events.thesupply.com/api/salaries/${selectedPositionValue}/${selectedLocationValue}`)
+     axios.get(`https://5fc996973c1c220016440d3f.mockapi.io/salaries`)
     .then(response => {
       setDescriptions(response.data);
       setActiveIndex(activeIndex || 0);
